@@ -3,7 +3,7 @@
 /**
  * La url base para los servicios de la tabla Categoria
  */
-var serviceCT = "http://localhost:8080/api/Category/"
+var serviceCT = "http://129.151.110.94:8080/api/Category/"
 
 /**
  * Función trae todos los registros de las categorias con petición GET

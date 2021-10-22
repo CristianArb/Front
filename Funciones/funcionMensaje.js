@@ -3,7 +3,7 @@
 /**
  * La url base para los servicios de la tabla Mensaje
  */
-var serviceM = "http://localhost:8080/api/Message/"
+var serviceM = "http://129.151.110.94:8080/api/Message/"
 
 /**
  * Función trae todos los registros de los mensajes con petición GET

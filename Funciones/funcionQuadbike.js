@@ -3,7 +3,7 @@
 /**
  * La url base para los servicios de la tabla Quadbike
  */
-var serviceQ = "http://localhost:8080/api/Quadbike/"
+var serviceQ = "http://129.151.110.94:8080/api/Quadbike/"
 
 /**
  * Función trae todos los registros de las cuatrimotos con petición GET

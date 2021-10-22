@@ -3,7 +3,7 @@
 /**
  * La url base para los servicios de la tabla Cliente
  */
-var serviceCL = "http://localhost:8080/api/Client/"
+var serviceCL = "http://129.151.110.94:8080/api/Client/"
 
 /**
  * Función trae todos los registros de los clientes con petición GET
