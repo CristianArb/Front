@@ -3,14 +3,14 @@
 /**
  * La url base para los servicios de la tabla Cliente
  */
-var serviceCL = "http://localhost:8080/api/Client/"
+var serviceCL = "http://localhost:8080/api/"
 
 /**
  * Función trae todos los registros de los clientes con petición GET
  */
 function traerInformacionClientes() {
     $.ajax({
-        url: serviceCL + "all",
+        url: serviceCL + "Client/all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
@@ -44,7 +44,7 @@ function pintarRespuestaClientes(respuesta) {
 }
 
 /**
- * Función para guardar un cliente
+ * Función para guardar un cliente con peticion POST
  */
 function guardarInformacionClientes() {
     let info = {
@@ -55,7 +55,7 @@ function guardarInformacionClientes() {
     };
 
     $.ajax({
-        url: serviceCL + "save",
+        url: serviceCL + "Client/save",
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',

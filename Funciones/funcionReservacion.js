@@ -1,15 +1,15 @@
 
 /**
- * La url base para los servicios de la tabla Quadbike
+ * La url base para los servicios de la tabla Reservaciones
  */
-var serviceR = "http://localhost:8080/api/Reservation/"
+var service = "http://localhost:8080/api/"
 
 /**
- * Función trae todos los registros de las cuatrimotos con petición GET
+ * Función trae todos los registros de las reservaciones con petición GET
  */
 function traerInformacionReservaciones() {
     $.ajax({
-        url: serviceR + "all",
+        url: service + "Reservation/all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
@@ -24,6 +24,10 @@ function traerInformacionReservaciones() {
     });
 }
 
+/**
+ * Función que dibuja la tabla completa de registros de las reservaciones
+ * @param {JSON con todos los registros de las reservaciones} respuesta 
+ */
 function pintarRespuestaReservaciones(respuesta) {
     
     let myTable = "<table>";
@@ -39,6 +43,9 @@ function pintarRespuestaReservaciones(respuesta) {
     $("#tablaReservacion").html(myTable);
 }
 
+/**
+ * Función para guardar una categoria con peticion POST
+ */
 function guardarInformacionReservaciones() {
 
     let info = {
@@ -47,7 +54,7 @@ function guardarInformacionReservaciones() {
     };
 
     $.ajax({
-        url: serviceR + "save",
+        url: service + "Reservation/save",
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',

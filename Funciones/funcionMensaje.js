@@ -3,14 +3,14 @@
 /**
  * La url base para los servicios de la tabla Mensaje
  */
-var serviceM = "http://localhost:8080/api/Message/"
+var service = "http://localhost:8080/api/"
 
 /**
  * Función trae todos los registros de los mensajes con petición GET
  */
 function traerInformacionMensajes() {
     $.ajax({
-        url: serviceM + "all",
+        url: service + "Message/all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
@@ -41,7 +41,7 @@ function pintarRespuestaMensajes(respuesta) {
 }
 
 /**
- * Función para guardar un mensaje
+ * Función para guardar un mensaje con peticion POST
  */
 function guardarInformacionMensajes() {
     let info = {
@@ -50,7 +50,7 @@ function guardarInformacionMensajes() {
     };
 
     $.ajax({
-        url: serviceM + "save",
+        url: service + "Message/save",
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',

@@ -1,16 +1,16 @@
 // Este script contiene las funciones para la tabla QUADBIKES
 
 /**
- * La url base para los servicios de la tabla Quadbike
+ * La url base para los servicios 
  */
-var serviceQ = "http://localhost:8080/api/Quadbike/"
+var service = "http://localhost:8080/api/"
 
 /**
  * Función trae todos los registros de las cuatrimotos con petición GET
  */
 function traerInformacionCuatrimotos() {
     $.ajax({
-        url: serviceQ + "all",
+        url: serviceQ + "Quadbike/all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
@@ -48,7 +48,7 @@ function pintarRespuestaCuatrimotos(respuesta) {
 }
 
 /**
- * Función para guardar una cuatrimoto
+ * Función para guardar una cuatrimoto con peticion POST
  */
 function guardarInformacionCuatrimotos() {
 
@@ -62,7 +62,7 @@ function guardarInformacionCuatrimotos() {
         };
 
         $.ajax({
-            url: serviceQ + "save",
+            url: service + "Quadbike/save",
             type: 'POST',
             contentType: "application/json; charset=utf-8",
             dataType: 'JSON',
@@ -128,7 +128,7 @@ function actualizarDatosCuatrimotos(codigo) {
     $.ajax({
         dataType: 'json',
         data: dataToSend,
-        url: service + moduleQuadbike,
+        url: service + "Quadbike/update",
         type: "PUT",
         contentType: 'application/json',
 
@@ -159,7 +159,7 @@ function borrarCuatrimoto(codigo) {
     let dataToSend = JSON.stringify(info);
 
     $.ajax({
-        url: serviceQ + "",
+        url: service + "Quadbike/",
         type: "DELETE",
         data: dataToSend,
         dataType: 'JSON',

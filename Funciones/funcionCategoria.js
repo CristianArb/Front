@@ -1,16 +1,16 @@
 // Este script contiene las funciones para la tabla CATEGORIAS
 
 /**
- * La url base para los servicios de la tabla Categoria
+ * La url base para los servicios 
  */
-var serviceCT = "http://localhost:8080/api/Category/"
+var service = "http://localhost:8080/api/"
 
 /**
  * Función trae todos los registros de las categorias con petición GET
  */
 function traerInformacionCategorias() {
     $.ajax({
-        url: serviceCT + "all",
+        url: service + "Category/all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
@@ -24,7 +24,7 @@ function traerInformacionCategorias() {
 }
 
 /**
- * Función que dibuja la tabla completa de registros de los mensajes
+ * Función que dibuja la tabla completa de registros de las categorias
  * @param {JSON con todos los registros de las categorias} respuesta 
  */
 function pintarRespuestaCategorias(respuesta) {
@@ -42,7 +42,7 @@ function pintarRespuestaCategorias(respuesta) {
 }
 
 /**
- * Función para guardar una categoria
+ * Función para guardar una categoria con peticion POST
  */
 function guardarInformacionCategorias() {
     let info = {
@@ -51,7 +51,7 @@ function guardarInformacionCategorias() {
     };
 
     $.ajax({
-        url: serviceCT + "save",
+        url: service + "Category/all",
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',
