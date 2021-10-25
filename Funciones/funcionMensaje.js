@@ -9,6 +9,9 @@ var service = "http://localhost:8080/api/"
  * Función trae todos los registros de los mensajes con petición GET
  */
 function traerInformacionMensajes() {
+
+    jQuery.support.cors = true;
+
     $.ajax({
         url: service + "Message/all",
         type: "GET",
@@ -17,9 +20,11 @@ function traerInformacionMensajes() {
             console.log(respuesta);
             pintarRespuestaMensajes(respuesta);
         },
+
         error: function (xhr, status) {
             alert("Ha sucedido un problema al consultar mensajes.");
         }
+
     });
 }
 
@@ -29,21 +34,30 @@ function traerInformacionMensajes() {
  */
 function pintarRespuestaMensajes(respuesta) {
 
+    jQuery.support.cors = true;
     let myTable = "<table>";
     myTable += "<tr> <th>Messagetext</th> </tr>";
+
     for (i = 0; i < respuesta.length; i++) {
+
         myTable += "<tr>";
         myTable += "<td>" + respuesta[i].messageText + "</td>";
         myTable += "</tr>";
+
     }
+
     myTable += "</table>";
     $("#tablaMensaje").html(myTable);
+
 }
 
 /**
  * Función para guardar un mensaje con peticion POST
  */
 function guardarInformacionMensajes() {
+
+    jQuery.support.cors = true;
+
     let info = {
         messageText: $("#messageText").val()
         
@@ -72,6 +86,7 @@ function guardarInformacionMensajes() {
 
 
         }
+        
     });
 
 }
