@@ -1,16 +1,26 @@
-// Este script contiene las funciones para la tabla CLIENTES
+/**
+ * funcionCliente
+ * Este script contiene las funciones para la tabla CLIENTES.
+ * Sus funciones se implementan tanto en el index.html como en
+ * creacionCliente.html usando jQuery.
+ * Para las peticiones http se utiliza ajax.
+ * 
+ * @since 2021-10-27
+ * @version 1.0
+ * @author Cristian Peña, Camilo Muñoz & Andres Bonilla
+ */
 
 /**
  * La url base para los servicios de la tabla Cliente
  */
-var serviceCL = "http://localhost:8080/api/"
+var serviceCL = "http://129.151.110.248:8080/api/Client/";
 
 /**
  * Función trae todos los registros de los clientes con petición GET
  */
 function traerInformacionClientes() {
     $.ajax({
-        url: serviceCL + "Client/all",
+        url: serviceCL + "all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
@@ -44,18 +54,18 @@ function pintarRespuestaClientes(respuesta) {
 }
 
 /**
- * Función para guardar un cliente con peticion POST
+ * Función para guardar un cliente
  */
 function guardarInformacionClientes() {
     let info = {
-        name: $("#name").val(),
+        name: $("#nameCL").val(),
         email: $("#email").val(),
         password: $("#password").val(),
         age: $("#age").val(),
     };
 
     $.ajax({
-        url: serviceCL + "Client/save",
+        url: serviceCL + "save",
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',

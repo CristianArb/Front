@@ -1,15 +1,26 @@
+/**
+ * funcionReservacion
+ * Este script contiene las funciones para la tabla RESERVACIONES.
+ * Sus funciones se implementan tanto en el index.html como en
+ * creacionCategoria.html usando jQuery.
+ * Para las peticiones http se utiliza ajax.
+ * 
+ * @since 2021-10-27
+ * @version 1.0
+ * @author Cristian Peña, Camilo Muñoz & Andres Bonilla
+ */
 
 /**
  * La url base para los servicios de la tabla Reservaciones
  */
-var service = "http://localhost:8080/api/"
+var serviceR = "http://129.151.110.248:8080/api/Reservation/";
 
 /**
- * Función trae todos los registros de las reservaciones con petición GET
+ * Función trae todos los registros de las cuatrimotos con petición GET
  */
 function traerInformacionReservaciones() {
     $.ajax({
-        url: service + "Reservation/all",
+        url: serviceR + "all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
@@ -18,16 +29,12 @@ function traerInformacionReservaciones() {
         },
 
         error: function (xhr, status) {
-            alert("Ha sucedido un problema al consultar clientes.");
+            alert("Ha sucedido un problema al consultar reservaciones.");
         }
 
     });
 }
 
-/**
- * Función que dibuja la tabla completa de registros de las reservaciones
- * @param {JSON con todos los registros de las reservaciones} respuesta 
- */
 function pintarRespuestaReservaciones(respuesta) {
     
     let myTable = "<table>";
@@ -43,9 +50,6 @@ function pintarRespuestaReservaciones(respuesta) {
     $("#tablaReservacion").html(myTable);
 }
 
-/**
- * Función para guardar una categoria con peticion POST
- */
 function guardarInformacionReservaciones() {
 
     let info = {
@@ -54,7 +58,7 @@ function guardarInformacionReservaciones() {
     };
 
     $.ajax({
-        url: service + "Reservation/save",
+        url: serviceR + "save",
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',
@@ -65,14 +69,14 @@ function guardarInformacionReservaciones() {
 
         success: function (response) {
             console.log(response);
-            console.log("Se guardo correctamente");
-            alert("Se guardo correctamente");
+            console.log("La reservacion se guardo correctamente");
+            alert("La reservacion se guardo correctamente");
             window.location.reload()
         },
 
         error: function (jqXHR, textStatus, errorThrown) {
             window.location.reload()
-            alert("No se guardo correctamente");
+            alert("La reservacion no se guardo correctamente");
         }
     });
 
