@@ -13,7 +13,7 @@
 /**
  * La url base para los servicios de la tabla Reservaciones
  */
-var serviceR = "http://129.151.110.248:8080/api/Reservation/";
+var serviceR = "http://localhost:8080/api/Reservation/";
 
 /**
  * Función trae todos los registros de las cuatrimotos con petición GET
