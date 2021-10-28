@@ -99,3 +99,91 @@ function guardarInformacionCuatrimotos() {
 }
 
 
+// ******************************** Para el reto 4 ********************************
+/*
+function detalleCuatrimoto(nodo) {
+
+    var nodoTd = nodo.parentNode;
+    var nodoTr = nodoTd.parentNode;
+    var nodosEnTr = nodoTr.getElementsByTagName('td');
+
+    var nuevoCodigoHtml =
+
+        '<td>' + nodosEnTr[0].textContent + '</td>' +
+        '<td><input type="text" name="nombre" id="nombreActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td><input type="number" name="marca" id="marcaActulizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
+        '<td><input type="number" name="año" id="añoActulizado" value="' + nodosEnTr[3].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="descripcion" id="descripcionActulizado" value="' + nodosEnTr[4].textContent + '" size="1" </td>' +
+        '<td><button onclick="borrarCuatrimoto(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
+        '</td><td><button onclick="actualizarDatosCuatrimoto(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';
+
+    nodoTr.innerHTML = nuevoCodigoHtml;
+
+}
+
+
+function actualizarDatosCuatrimotos(codigo) {
+
+    let info = {
+        id: codigo,
+        brand: $("#marcaActulizado").val(),
+        model: $("#modeloActulizado").val(),
+        category_id: $("#categoriaActulizado").val(),
+        name: $("#nombreActulizado").val()
+    };
+
+    let dataToSend = JSON.stringify(info);
+
+    $.ajax({
+        dataType: 'json',
+        data: dataToSend,
+        url: service + moduleQuadbike,
+        type: "PUT",
+        contentType: 'application/json',
+
+        success: function (response) {
+
+            traerInformacionCuatrimotos();
+            console.log("Entro");
+
+        },
+        error: function (errorThrown) {
+
+            traerInformacionCuatrimotos();
+            console.log(errorThrown)
+
+
+        }
+    });
+}
+
+
+
+function borrarCuatrimoto(codigo) {
+
+    let info = {
+        id: codigo
+    };
+
+    let dataToSend = JSON.stringify(info);
+
+    $.ajax({
+        url: serviceQ + "",
+        type: "DELETE",
+        data: dataToSend,
+        dataType: 'JSON',
+        contentType: 'application/json',
+        success: function () {
+            traerInformacionQuadbikes();
+            alert("Se ha eliminado la cuatrimoto.")
+        },
+
+        error: function (errorThrown) {
+            console.log(errorThrown);
+            alert("Ha sucedido un problema al actualizar la cuatrimoto.");
+        }
+    });
+    
+}
+
+*/
