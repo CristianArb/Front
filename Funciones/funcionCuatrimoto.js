@@ -1,4 +1,15 @@
-// Este script contiene las funciones para la tabla QUADBIKES
+/**
+ * funcionQuadbike
+ * Este script contiene las funciones para la tabla QUADBIKES.
+ * Sus funciones se implementan tanto en el index.html como en
+ * creacionCuatrimoto.html usando jQuery.
+ * Para las peticiones http se utiliza ajax.
+ * 
+ * @since 2021-10-27
+ * @version 1.0
+ * @author Cristian Peña, Camilo Muñoz & Andres Bonilla
+ */
+
 jQuery.support.cors = true;
 
 /**
