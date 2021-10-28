@@ -1,30 +1,35 @@
-// Este script contiene las funciones para la tabla MENSAJES
+/**
+ * funcionMensaje
+ * Este script contiene las funciones para la tabla MENSAJES.
+ * Sus funciones se implementan tanto en el index.html como en
+ * creacionCategoria.html usando jQuery.
+ * Para las peticiones http se utiliza ajax.
+ * 
+ * @since 2021-10-27
+ * @version 1.0
+ * @author Cristian Peña, Camilo Muñoz & Andres Bonilla
+ */
 
 /**
  * La url base para los servicios de la tabla Mensaje
  */
-var service = "http://localhost:8080/api/"
+var serviceM = "http://129.151.110.248:8080/api/Message/";
 
 /**
  * Función trae todos los registros de los mensajes con petición GET
  */
 function traerInformacionMensajes() {
-
-    jQuery.support.cors = true;
-
     $.ajax({
-        url: service + "Message/all",
+        url: serviceM + "all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
             console.log(respuesta);
             pintarRespuestaMensajes(respuesta);
         },
-
         error: function (xhr, status) {
             alert("Ha sucedido un problema al consultar mensajes.");
         }
-
     });
 }
 
@@ -34,37 +39,28 @@ function traerInformacionMensajes() {
  */
 function pintarRespuestaMensajes(respuesta) {
 
-    jQuery.support.cors = true;
     let myTable = "<table>";
     myTable += "<tr> <th>Messagetext</th> </tr>";
-
     for (i = 0; i < respuesta.length; i++) {
-
         myTable += "<tr>";
         myTable += "<td>" + respuesta[i].messageText + "</td>";
         myTable += "</tr>";
-
     }
-
     myTable += "</table>";
     $("#tablaMensaje").html(myTable);
-
 }
 
 /**
- * Función para guardar un mensaje con peticion POST
+ * Función para guardar un mensaje
  */
 function guardarInformacionMensajes() {
-
-    jQuery.support.cors = true;
-
     let info = {
         messageText: $("#messageText").val()
         
     };
 
     $.ajax({
-        url: service + "Message/save",
+        url: serviceM + "save",
         type: 'POST',
         contentType: "application/json; charset=utf-8",
         dataType: 'JSON',
@@ -86,7 +82,6 @@ function guardarInformacionMensajes() {
 
 
         }
-        
     });
 
 }
