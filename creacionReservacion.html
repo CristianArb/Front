@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Formulario Cuatrimoto</title>
+    <title>Formulario Reservacion</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" language="JavaScript" src="Funciones/funcionReservacion.js"></script>
 
@@ -11,7 +11,7 @@
 
 <body>
 
-    <h1>Formulario Cuatrimoto</h1>
+    <h1>Formulario Reservacion</h1>
 
     <br />
     <label>FechaIncial</label>
@@ -24,9 +24,26 @@
 
     <br />
     <br />
+    <label>Cliente</label>
+    <select id="select-client-R"></select>
+
+    <br />
+    <br />
+    <label>Cuatrimoto</label>
+    <select id="select-quadbike-R"></select>
+
+    <br />
+    <br />
     <br />
     <button onclick="guardarInformacionReservaciones()">Registrar Reserva</button>
     <br />
+
+    <script type="text/javascript">
+    
+        window.onload = autoInicioCliente();
+        window.onload = autoInicioCuatrimoto();
+
+    </script>
 
 </body>
 
