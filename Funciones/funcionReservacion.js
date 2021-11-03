@@ -115,8 +115,10 @@ function guardarInformacionReservaciones() {
     let nuevoCodigoHtml =
 
         '<td>' + nodosEnTr[0].textContent + '</td>' +
-        '<td><input type="date" name="fechaInicio" id="fechaIActulizado" value="' + nodosEnTr[0].textContent + '" size="1" </td>' +
-        '<td><input type="date" name="fechaFinal" id="fechaFActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td><input type="date" name="fechaInicio" id="fechaIActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td><input type="date" name="fechaFinal" id="fechaFActulizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
+        '<td>' + nodosEnTr[3].textContent + '</td>' +
+        '<td>' + nodosEnTr[4].textContent + '</td>' +
         '<td><button onclick="borrarReservacion(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
         '</td><td><button onclick="actualizarDatosReservacion(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';
 

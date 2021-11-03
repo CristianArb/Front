@@ -119,7 +119,9 @@ function guardarInformacionMensajes() {
     let nuevoCodigoHtml =
 
         '<td>' + nodosEnTr[0].textContent + '</td>' +
-        '<td><input type="text" name="menssageText" id="nombreActulizado" value="' + nodosEnTr[0].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="menssageText" id="nombreActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td>' + nodosEnTr[2].textContent + '</td>' +
+        '<td>' + nodosEnTr[3].textContent + '</td>' +
         '<td><button onclick="borrarMensaje(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
         '</td><td><button onclick="actualizarDatosMensaje(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';
 

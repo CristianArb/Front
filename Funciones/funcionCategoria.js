@@ -106,9 +106,9 @@ function detalleCategoria(nodo) {
 
     let nuevoCodigoHtml =
 
-        '<td>' + nodosEnTr[0].textContent + '</td>' +//
-        '<td><input type="text" name="nameCT" id="nombreCTActulizado" value="' + nodosEnTr[0].textContent + '" size="1" </td>' +
-        '<td><input type="text" name="descriptionCT" id="descripcionCTActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td>' + nodosEnTr[0].textContent + '</td>' +
+        '<td><input type="text" name="nameCT" id="nombreCTActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="descriptionCT" id="descripcionCTActulizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
         '<td><button onclick="borrarCategorias(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
         '</td><td><button onclick="actualizarDatosCategorias(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';
 

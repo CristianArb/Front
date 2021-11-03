@@ -111,10 +111,10 @@ function guardarInformacionClientes() {
     let nuevoCodigoHtml =
 
         '<td>' + nodosEnTr[0].textContent + '</td>' +
-        '<td><input type="text" name="email" id="emailActualizado" value="' + nodosEnTr[0].textContent + '" size="1" </td>' +
-        '<td><input type="text" name="password" id="passwordActualizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
-        '<td><input type="text" name="nameCL" id="nameCLActualizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
-        '<td><input type="number" name="age" id="ageActualizado" value="' + nodosEnTr[3].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="email" id="emailActualizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="password" id="passwordActualizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="nameCL" id="nameCLActualizado" value="' + nodosEnTr[3].textContent + '" size="1" </td>' +
+        '<td><input type="number" name="age" id="ageActualizado" value="' + nodosEnTr[4].textContent + '" size="1" </td>' +
         '<td><button onclick="borrarCliente(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
         '</td><td><button onclick=" actualizarDatosCliente(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';
 
