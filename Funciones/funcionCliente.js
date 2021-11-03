@@ -13,7 +13,7 @@
 /**
  * La url base para los servicios de la tabla Cliente
  */
-var serviceCL = "http://localhost:8080/api/Client/";
+var serviceCL = service + "/api/Client/";
 
 /**
  * Función trae todos los registros de los clientes con petición GET
@@ -28,7 +28,7 @@ function traerInformacionClientes() {
             pintarRespuestaClientes(respuesta);
         },
         error: function (xhr, status) {
-            alert("Ha sucedido un problema al consultar clientes.");
+            alert("Ha sucedido un problema al consultar los clientes.");
         }
     });
 }
@@ -40,13 +40,17 @@ function traerInformacionClientes() {
 function pintarRespuestaClientes(respuesta) {
 
     let myTable = "<table>";
-    myTable += "<tr> <th>Email</th> <th>Password</th> <th>Name</th> <th>Age</th> </tr>";
+    myTable += "<tr> <th>Id</th> <th>Email</th> <th>Password</th> <th>Name</th> <th>Age</th> </tr>";
     for (i = 0; i < respuesta.length; i++) {
+
         myTable += "<tr>";
+        myTable += "<td>" + respuesta[i].idClient + "</td>";
         myTable += "<td>" + respuesta[i].email + "</td>";
         myTable += "<td>" + respuesta[i].password + "</td>";
         myTable += "<td>" + respuesta[i].name + "</td>";
         myTable += "<td>" + respuesta[i].age + "</td>";
+        myTable += "<td>" + '<button onclick="borrarClientes(' + respuesta[i].idClient + ')">Borrar</button>' + "</td>";
+        myTable += "<td>" + '<button onclick="detalleClientes(this)">Detalle</button>' + "</td>";
         myTable += "</tr>";
     }
     myTable += "</table>";
@@ -75,18 +79,125 @@ function guardarInformacionClientes() {
         success: function (response) {
             window.location.reload();
             console.log(response);
-            console.log("El cliente se guardo correctamente");
-            alert("El cliente se guardo correctamente");
+            console.log("El cliente se guardó correctamente");
+            alert("El cliente se guardo correctamente.");
 
         },
 
         error: function (jqXHR, textStatus, errorThrown) {
             window.location.reload();
             console.log(errorThrown);
-            alert("El cliente no se guardo correctamente");
+            alert("Ha sucedido un problema al guardar el cliente.");
 
 
         }
     });
 
 }
+
+// ******************************** Para el reto 4 ********************************
+
+/**
+ * detalleCuatrimoto(nodo)
+ * Función que hace uso de un nodo para modificar los datos de tablaCuatrimoto
+ * @param {Nodo con la fila de la tablaCuatrimoto} nodo 
+ */
+ function detalleClientes(nodo) {
+
+    var nodoTd = nodo.parentNode;
+    var nodoTr = nodoTd.parentNode;
+    var nodosEnTr = nodoTr.getElementsByTagName('td');
+
+    let nuevoCodigoHtml =
+
+        '<td>' + nodosEnTr[0].textContent + '</td>' +
+        '<td><input type="text" name="email" id="emailActualizado" value="' + nodosEnTr[0].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="password" id="passwordActualizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="nameCL" id="nameCLActualizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
+        '<td><input type="number" name="age" id="ageActualizado" value="' + nodosEnTr[3].textContent + '" size="1" </td>' +
+        '<td><button onclick="borrarCliente(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
+        '</td><td><button onclick=" actualizarDatosCliente(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';
+
+    nodoTr.innerHTML = nuevoCodigoHtml;
+
+}
+
+/**
+ * actualizarDatosCuatrimotos(codigo)
+ * Función para actualizar la información de la cuatrimoto con un JSON en el Backend mediante una peticion POST.
+ * @param {id de la cuatrimoto a actualizar} codigo 
+ */
+function actualizarDatosCliente(codigo) {
+
+    let info = {
+        id: codigo,
+        email: $("#emailActualizado").val(),
+        password: $("#passwordActualizado").val(),
+        name: $("#nameCLActualizado").val(),
+        age: $("#ageActualizado").val()
+    };
+
+    let dataToSend = JSON.stringify(info);
+
+    $.ajax({
+        dataType: 'json',
+        data: dataToSend,
+        url: serviceCL + "update",
+        type: "PUT",
+        contentType: 'application/json',
+
+        success: function (response) {
+
+            traerInformacionClientes();
+            alert("El cliente se actualizó correctamente.");
+
+        },
+        error: function (errorThrown) {
+
+            traerInformacionClientes();
+            alert("El cliente no se actualizó correctamente.");
+
+
+        }
+    });
+}
+
+
+/**
+ * borrarCuatrimoto(codigo)
+ * Función para borrar la información de la cuatrimoto con un JSON el Backend mediante una peticion DELETE.
+ * @param {id de la cuatrimoto a borrar} codigo 
+ */
+function borrarClientes(codigo) {
+
+    let info = {
+        id: codigo
+    };
+
+    let dataToSend = JSON.stringify(info);
+
+    $.ajax({
+        url: serviceCL + codigo,
+        type: "DELETE",
+        data: dataToSend,
+        dataType: 'JSON',
+        contentType: 'application/json',
+        success: function () {
+
+            traerInformacionCuatrimotos();
+            alert("El cliente se borró correctamente.")
+
+        },
+
+        error: function (errorThrown) {
+
+            console.log(errorThrown);
+            alert("Ha sucedido un problema al borrar el cliente, verifique que"
+            + "no tenga información almacenada de las reservas y los mensajes."
+            );
+
+        }
+    });
+
+}
+

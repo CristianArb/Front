@@ -13,7 +13,7 @@
 /**
  * La url base para los servicios de la tabla Categoria
  */
- var serviceCT = "http://localhost:8080/api/Category/";
+ var serviceCT = service + "/api/Category/";
 
  /**
   * Función trae todos los registros de las categorias con petición GET
@@ -28,7 +28,7 @@
              pintarRespuestaCategorias(respuesta);
          },
          error: function (xhr, status) {
-             alert("Ha sucedido un problema al consultar categorias.");
+             alert("Ha sucedido un problema al consultar las categorias.");
          }
      });
  }
@@ -40,11 +40,16 @@
  function pintarRespuestaCategorias(respuesta) {
  
      let myTable = "<table>";
-     myTable += "<tr> <th>Name</th> <th>Description</th> </tr>";
+     myTable += "<tr> <th>Id</th> <th>Name</th> <th>Description</th> </tr>";
      for (i = 0; i < respuesta.length; i++) {
          myTable += "<tr>";
+         myTable += "<td>" + respuesta[i].id + "</td>";
          myTable += "<td>" + respuesta[i].name + "</td>";
          myTable += "<td>" + respuesta[i].description + "</td>";
+         myTable += "<td>" + '<button onclick="borrarCategorias(' + respuesta[i].id+ ')">borrar</button>' + "</td>";
+         myTable += "<td>" + '<button onclick="detalleCategoria(this)">Detalle</button>' + "</td>";
+ 
+
          myTable += "</tr>";
      }
      myTable += "</table>";
@@ -55,6 +60,7 @@
   * Función para guardar una categoria
   */
  function guardarInformacionCategorias() {
+     
      let info = {
          name: $("#nameCT").val(),
          description: $("#descriptionCT").val()
@@ -71,18 +77,118 @@
          success: function (response) {
              window.location.reload();
              console.log(response);
-             console.log("La categoria se guardo correctamente");
-             alert("La categoria se guardo correctamente");
+             alert("La categoria se guardó correctamente.");
  
          },
  
          error: function (jqXHR, textStatus, errorThrown) {
              window.location.reload();
              console.log(errorThrown);
-             alert("La categoria no se guardo correctamente");
+             alert("Ha sucedido un problema al guarda la categoria.");
  
  
          }
      });
  
  }
+ // ******************************** Para el reto 4 ********************************
+
+/**
+ * detalleCuatrimoto(nodo)
+ * Función que hace uso de un nodo para modificar los datos de tablaCuatrimoto
+ * @param {Nodo con la fila de la tablaCuatrimoto} nodo 
+ */
+function detalleCategoria(nodo) {
+
+    var nodoTd = nodo.parentNode;
+    var nodoTr = nodoTd.parentNode;
+    var nodosEnTr = nodoTr.getElementsByTagName('td');
+
+    let nuevoCodigoHtml =
+
+        '<td>' + nodosEnTr[0].textContent + '</td>' +//
+        '<td><input type="text" name="nameCT" id="nombreCTActulizado" value="' + nodosEnTr[0].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="descriptionCT" id="descripcionCTActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td><button onclick="borrarCategorias(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
+        '</td><td><button onclick="actualizarDatosCategorias(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';
+
+    nodoTr.innerHTML = nuevoCodigoHtml;
+
+}
+
+/**
+ * actualizarDatosCuatrimotos(codigo)
+ * Función para actualizar la información de la cuatrimoto con un JSON en el Backend mediante una peticion POST.
+ * @param {id de la categoria a actualizar} codigo 
+ */
+function actualizarDatosCategorias(codigo) {
+
+    let info = {
+        id: codigo,
+        name: $("#nombreCTActulizado").val(),
+        description: $("#descripcionCTActulizado").val()
+    };
+
+    let dataToSend = JSON.stringify(info);
+
+    $.ajax({
+        dataType: 'json',
+        data: dataToSend,
+        url: serviceCT + "update",
+        type: "PUT",
+        contentType: 'application/json',
+
+        success: function (response) {
+
+            traerInformacionCategorias();
+            alert("La categoria se actualizó correctamente.");
+
+        },
+        error: function (errorThrown) {
+
+            traerInformacionCategorias();
+            alert("Ha sucedido un problema al actualizar la categoria.");
+
+
+        }
+    });
+}
+
+
+/**
+ * borrarCuatrimoto(codigo)
+ * Función para borrar la información de la cuatrimoto con un JSON el Backend mediante una peticion DELETE.
+ * @param {id de la categoria a borrar} codigo 
+ */
+function borrarCategorias(codigo) {
+
+    let info = {
+        id: codigo
+    };
+
+    let dataToSend = JSON.stringify(info);
+
+    $.ajax({
+        url: serviceCT + codigo,
+        type: "DELETE",
+        data: dataToSend,
+        dataType: 'JSON',
+        contentType: 'application/json',
+        success: function () {
+
+            traerInformacionCuatrimotos();
+            alert("La categoria se borró correctamente.")
+
+        },
+
+        error: function (errorThrown) {
+
+            console.log(errorThrown);
+            alert("Ha sucedido un problema al borrar la categoria, verifique"
+            + "que no tenga información almacenada de las cuatrimotos.");
+
+        }
+    });
+
+}
+

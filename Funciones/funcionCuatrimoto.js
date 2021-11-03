@@ -13,7 +13,7 @@
 /**
  * La url base para los servicios 
  */
-var service = "http://localhost:8080/api/Quadbike/"
+ var serviceC = service + "/api/Quadbike/";
 
 /**
  * traerInformacionCuatrimotos()
@@ -23,7 +23,7 @@ function traerInformacionCuatrimotos() {
 
     $.ajax({
 
-        url: service + "all",
+        url: serviceC + "all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
@@ -31,7 +31,7 @@ function traerInformacionCuatrimotos() {
             pintarRespuestaCuatrimotos(respuesta);
         },
         error: function (xhr, status) {
-            alert("Ha sucedido un problema al consultar Cuatrimoto.");
+            alert("Ha sucedido un problema al consultar cuatrimoto.");
         }
     });
 }
@@ -73,40 +73,49 @@ function pintarRespuestaCuatrimotos(respuesta) {
  */
 function guardarInformacionCuatrimotos() {
 
-    if ($("#year").val() >= 1970 && $("#year").val() <= 2022) {
+    console.log($("#select-category"))
+    if ($("#select-category").val() == null ){
 
-        let info = {
-            name: $("#name").val(),
-            brand: $("#brand").val(),
-            year: $("#year").val(),
-            description: $("#description").val(),
-            category: { id: $("#select-category").val() },
-        };
+        alert("Seleccione una categoria");
 
-        $.ajax({
-            url: service + "save",
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            dataType: 'JSON',
-            data: JSON.stringify(info),
+        }
+
+        else{
+
+        if ($("#year").val() >= 1970 && $("#year").val() <= 2022) {
+
+            let info = {
+                name: $("#name").val(),
+                brand: $("#brand").val(),
+                year: $("#year").val(),
+                description: $("#description").val(),
+                category: { id: $("#select-category").val() },
+            };
+
+            $.ajax({
+                url: serviceQ + "save",
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'JSON',
+                data: JSON.stringify(info),
 
 
-            success: function (response) {
-                window.location.reload();
-                console.log(response);
-                console.log("La cuatrimoto se guardo correctamente");
-                alert("La cuatrimoto se guardo correctamente");
+                success: function (response) {
+                    window.location.reload();
+                    console.log(response);
+                    alert("La cuatrimoto se guardó correctamente.");
 
-            },
+                },
 
-            error: function (jqXHR, textStatus, errorThrown) {
-                window.location.reload();
-                console.log(errorThrown)
-                alert("La cuatrimoto no se guardo correctamente");
-            }
-        });
-    } else {
-        alert("El año debe estar entre 1970 y 2022");
+                error: function (jqXHR, textStatus, errorThrown) {
+                    window.location.reload();
+                    console.log(errorThrown)
+                    alert("Ha sucedido un problema al guardar la cuatrimoto.");
+                }
+            });
+        } else {
+            alert("El año debe estar entre 1970 y 2022");
+        }
     }
 }
 
@@ -129,7 +138,7 @@ function detalleCuatrimoto(nodo) {
 
         '<td>' + nodosEnTr[0].textContent + '</td>' +
         '<td><input type="text" name="nombre" id="nombreActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
-        '<td><input type="number" name="marca" id="marcaActulizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="marca" id="marcaActulizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
         '<td><input type="number" name="año" id="añoActulizado" value="' + nodosEnTr[3].textContent + '" size="1" </td>' +
         '<td><input type="text" name="descripcion" id="descripcionActulizado" value="' + nodosEnTr[4].textContent + '" size="1" </td>' +
         '<td><button onclick="borrarCuatrimoto(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
@@ -159,20 +168,20 @@ function actualizarDatosCuatrimotos(codigo) {
     $.ajax({
         dataType: 'json',
         data: dataToSend,
-        url: service + "update",
+        url: serviceC + "update",
         type: "PUT",
         contentType: 'application/json',
 
         success: function (response) {
 
             traerInformacionCuatrimotos();
-            alert("La cuatrimoto se actualizo correctamente");
+            alert("La cuatrimoto se actualizó correctamente.");
 
         },
         error: function (errorThrown) {
 
             traerInformacionCuatrimotos();
-            alert("La cuatrimoto no se actualizo correctamente");
+            alert("Ha sucedido un problema al actualizar la cuatrimoto.");
 
 
         }
@@ -194,22 +203,24 @@ function borrarCuatrimoto(codigo) {
     let dataToSend = JSON.stringify(info);
 
     $.ajax({
-        url: service + codigo,
+        url: serviceC + codigo,
         type: "DELETE",
         data: dataToSend,
         dataType: 'JSON',
         contentType: 'application/json',
         success: function () {
 
-            traerInformacionQuadbikes();
-            alert("Se ha borrado la cuatrimoto se actualizo.")
+            traerInformacionCuatrimotos();
+            alert("La cuatrimoto se borró correctamente.")
 
         },
 
         error: function (errorThrown) {
 
             console.log(errorThrown);
-            alert("Ha sucedido un problema al borrar la cuatrimoto.");
+            alert("Ha sucedido un problema al borrar la cuatrimoto, verifique "
+            + "que no tenga información almacenada de las reservas y los" + 
+            "mensajes.");
 
         }
     });
@@ -224,15 +235,13 @@ function borrarCuatrimoto(codigo) {
 function autoInicioCategoria() {
     
     $.ajax({
-        url: "http://localhost:8080/api/Category/all",
+        url: service + "/api/Category/all",
         type: "GET",
         datatype: "JSON",
         success: function (respuesta) {
-            console.log(respuesta);
             let $select = $("#select-category");
             $.each(respuesta, function (id, name) {
                 $select.append('<option value=' + name.id + '>' + name.name + '</option>');
-                console.log("select " + name.id);
             });
         }
 
