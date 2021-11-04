@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Front-End Reto 4</title>
+    <title>Front-End Reto 5</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,11 +20,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
     <script type="text/javascript" language="JavaScript" src="properties.js"></script>
-    <script type="text/javascript" language="JavaScript" src="Funciones/funcionCategoria.js"></script>
-    <script type="text/javascript" language="JavaScript" src="Funciones/funcionCliente.js"></script>
-    <script type="text/javascript" language="JavaScript" src="Funciones/funcionMensaje.js"></script>
-    <script type="text/javascript" language="JavaScript" src="Funciones/funcionCuatrimoto.js"></script>
-    <script type="text/javascript" language="JavaScript" src="Funciones/funcionReservacion.js"></script>
+    <script type="text/javascript" language="JavaScript" src="Funciones/categoria.js"></script>
+    <script type="text/javascript" language="JavaScript" src="Funciones/cliente.js"></script>
+    <script type="text/javascript" language="JavaScript" src="Funciones/mensaje.js"></script>
+    <script type="text/javascript" language="JavaScript" src="Funciones/cuatrimoto.js"></script>
+    <script type="text/javascript" language="JavaScript" src="Funciones/reservacion.js"></script>
+    <script type="text/javascript" language="JavaScript" src="Funciones/reporte.js"></script>
 
 </head>
 
@@ -143,13 +144,25 @@
 
                 <br />
                 <table id="tablaReservacion" cellpadding="1" cellspacing="1" border="1">
-                    <tr></tr>
                 </table>
 
                 <button onclick="traerInformacionReservaciones()">Traer todas las reservas</button>
                 <br />
 
             </div>
+
+            <!-- ************************* Sección De Reportes ************************* -->
+            <div class="col-sm-3">
+                <br />
+                <h2>Reportes</h2>
+                <br />
+
+                <br />
+                <p><a href="creacionReporte.html" id="enlace6">Crear Reservación</a></p>
+                <br />
+
+            </div>
+
         </div>
     </div>
 
