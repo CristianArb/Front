@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Reportes</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script type="text/javascript" language="JavaScript" src="properties.js"></script>
+        <script type="text/javascript" language="JavaScript" src="Funciones/reservacion.js"></script>
+        <script type="text/javascript" language="JavaScript" src="Funciones/reporte.js"></script>
+        
+    
+    </head>
+
+<body>
+
+    <br/>
+
+    <input type="date" id="RstarDate" placeholder="descripcion">
+    <input type="date" id="RdevolutionDate" placeholder="descripcion">
+
+    <br/>
+
+    <button onclick="reporteFecha()"> Generar Reporte por fecha </button>
+    <button onclick="reporteStatus()"> Generar Reporte Status Reservas </button>
+    <button onclick="reporteClientes()"> Generar Reporte Clientes y Cantidad de reservas por cliente </button>
+
+    <br/>
+
+    <table id="resultadoStatus"cellpadding="1" cellspacing="1" border="1"></table>
+    <table id="resultadoDate"cellpadding="1" cellspacing="1" border="1"></table>
+    <table id="resultadoClientes"cellpadding="1" cellspacing="1" border="1"></table>
+
+    <br/>
+    <br/>
+
+</body>
+
+</html>
