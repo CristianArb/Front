@@ -7,38 +7,55 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" language="JavaScript" src="properties.js"></script>
     <script type="text/javascript" language="JavaScript" src="Funciones/cliente.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="Estilos/estiloCliente.css">
 </head>
 
 <body>
 
-    <h1>Formulario Cliente</h1>
+    <header id="cabeceraCliente">
+        <div>
+            <h1>Formulario Cliente</h1>
+        </div>
+    </header>
 
-    <br />
-    <label>Nombre</label>
-    <input type="text" id="nameCL" placeholder="name" name="name"  maxlength="250"/>
+    <main>
+        <div>
+            <section id="formularioCliente">
+                <br />
+                <label class="label1">Nombre</label>
+                <input class="input2" type="text" id="nameCL" placeholder="name" name="name" maxlength="250" />
+                <br>
+                <br>
+                <br>
+                <label class="label2">Email</label>
+                <input class="input2" type="email" id="email" placeholder="email" name="email" maxlength="45" />
+                <br>
+                <br />
+                <br />
+                <label class="label3">Password</label>
+                <input class="input2" type="text" id="password" placeholder="password" name="password" maxlength="45">
+                <br>
+                <br />
+                <br />
+                <label class="label4">Edad</label>
+                <input class="input2" type="number" id="age" placeholder="age" name="age" />
 
-    <br />
-    <br />
-    <label>Email</label>
-    <input type="email" id="email" placeholder="email" name="email" maxlength="45"/>
-
-    <br />
-    <br />
-    <label>Password</label>
-    <input type="text" id="password" placeholder="password" name="password" maxlength="45">
-
-    <br />
-    <br />
-    <label>Edad</label>
-    <input type="number" id="age" placeholder="age" name="age" />
-
-    <br />
-    <br />
-    <br />
-    <button onclick="guardarInformacionClientes()">Registrar Cliente</button>
-    <a href="index.html" id="enlace2">Regresar</a></p>
-    <br />
+                <br />
+                <br />
+                <br />
+                <button onclick="guardarInformacionClientes()">Registrar Cliente</button>
+                <form>
+                    <a href="index.html">
+                        <input class="input1" type="button" value="Regresar">
+                    </a>
+                </form>
+                <br />
+            </section>
+            <aside id="seccionImagen">
+                <img id="imagenReserva" src="Imagenes/reservacion.jpg" alt="Reservacion de un vehiculo">
+            </aside>
+        </div>
+    </main>
 
 </body>
 

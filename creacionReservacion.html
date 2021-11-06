@@ -7,42 +7,58 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" language="JavaScript" src="properties.js"></script>
     <script type="text/javascript" language="JavaScript" src="Funciones/reservacion.js"></script>
-    
+    <link rel="stylesheet" href="Estilos/estiloReservacion.css">
 
 </head>
 
 <body>
 
-    <h1>Formulario Reservacion</h1>
+    <header id="cabeceraReservacion">
+        <div>
+            <h1>Formulario Reservacion</h1>
+        </div>
+    </header>
 
-    <br />
-    <label>FechaIncial</label>
-    <input type="date" id="startDate" placeholder="startDate" maxlength="45"><br>
+    <main>
+        <div>
+            <section id="formularioReservacion">
+                <br />
+                <label>Fecha Incial</label>
+                <input type="date" id="startDate" placeholder="startDate" maxlength="45"><br>
 
-    <br />
-    <br />
-    <label>FechaDevolucion</label>
-    <input type="date" id="devolutionDate" placeholder="devolutionDate" maxlength="45"><br>
+                <br />
+                <br />
+                <label>Fecha Devolución</label>
+                <input type="date" id="devolutionDate" placeholder="devolutionDate" maxlength="45"><br>
 
-    <br />
-    <br />
-    <label>Cliente</label>
-    <select id="select-client-R"></select>
+                <br />
+                <br />
+                <label>Cliente</label>
+                <select id="select-client-R"></select>
 
-    <br />
-    <br />
-    <label>Cuatrimoto</label>
-    <select id="select-quadbike-R"></select>
+                <br />
+                <br />
+                <label>Cuatrimoto</label>
+                <select id="select-quadbike-R"></select>
 
-    <br />
-    <br />
-    <br />
-    <button onclick="guardarInformacionReservaciones()">Registrar Reserva</button>
-    <a href="index.html" id="enlace2">Regresar</a></p>
-    <br />
+                <br />
+                <br />
+                <br />
+                <button onclick="guardarInformacionReservaciones()">Registrar Reserva</button>
+                <form>
+                    <a href="index.html">
+                        <input class="input1" type="button" value="Regresar">
+                    </a>
+                </form>
+            </section>
+            <aside id="seccionImagen">
+                <img id="imagenReserva" src="Imagenes/reservacion.jpg" alt="Reservacion de un vehiculo">
+            </aside>
+        </div>
+    </main>
 
     <script type="text/javascript">
-    
+
         window.onload = autoInicioCliente();
         window.onload = autoInicioCuatrimoto();
 

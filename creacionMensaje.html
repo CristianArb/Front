@@ -7,37 +7,54 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" language="JavaScript" src="properties.js"></script>
     <script type="text/javascript" language="JavaScript" src="Funciones/mensaje.js"></script>
-    
+    <link rel="stylesheet" href="Estilos/estiloMensaje.css">
+
 
 </head>
 
 <body>
-    
-    <h1>Formulario Mensaje</h1>
+    <header id="cabeceraMensaje">
+        <div>
+            <h1>Formulario Mensaje</h1>
+        </div>
+    </header>
 
-    <br />
-    <label>Mensaje</label>
-    <input type="text" id="messageText" placeholder="message text" name="menssageText" maxlength="250"/>
+    <main>
+        <div>
+            <section id="formularioMensaje">
+                <br />
+                <label>Mensaje</label>
+                <input type="text" id="messageText" placeholder="message text" name="menssageText" maxlength="250" />
 
-    <br />
-    <br />
-    <label>Cliente</label>
-    <select id="select-client"></select>
+                <br />
+                <br />
+                <label>Cliente</label>
+                <select id="select-client"></select>
 
-    <br />
-    <br />
-    <label>Cuatrimoto</label>
-    <select id="select-quadbike"></select>
+                <br />
+                <br />
+                <label>Cuatrimoto</label>
+                <select id="select-quadbike"></select>
 
-    <br />
-    <br />
-    <br />
-    <button onclick="guardarInformacionMensajes()">Registrar Mensaje</button>
-    <a href="index.html" id="enlace2">Regresar</a></p>
-    <br />
+                <br />
+                <br />
+                <br />
+                <button onclick="guardarInformacionMensajes()">Registrar Mensaje</button>
+                <form>
+                    <a href="index.html">
+                        <input class="input1" type="button" value="Regresar">
+                    </a>
+                </form>
+            </section>
+            <aside id="seccionImagen">
+                <img id="imagenBotella" src="Imagenes/mensajeBotella.jpg" alt="Mensaje en una botella">
+            </aside>
+        </div>
+    </main>
 
     <script type="text/javascript">
-    
+
+
         window.onload = autoInicioCliente();
         window.onload = autoInicioCuatrimoto();
 

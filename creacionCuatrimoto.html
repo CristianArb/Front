@@ -7,42 +7,61 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" language="JavaScript" src="properties.js"></script>
     <script type="text/javascript" language="JavaScript" src="Funciones/cuatrimoto.js"></script>
-    
+    <link rel="stylesheet" type="text/css" href="Estilos/estiloCuatrimoto.css">
 </head>
 
 <body>
 
-    <h1>Formulario Cuatrimoto</h1>
 
-    <br />
-    <label>Nombre</label>
-    <input type="text" id="name" placeholder="name" name="name" maxlength="45"/>
+    <header id="cabeceraCuatrimoto">
+        <div>
+            <h1>Formulario Cuatrimoto</h1>
+        </div>
+    </header>
 
-    <br />
-    <br />
-    <label>Marca</label>
-    <input type="text" id="brand" placeholder="brand" name="brand" maxlength="45"/>
-
-    <br />
-    <br />
-    <label>Modelo (1970-2022)</label>
-    <input type="number" id="year" placeholder="year" name="year"/>
-
-    <br />
-    <br />
-    <label>Descripción</label>
-    <input type="text" id="description" placeholder="description" name="description" maxlength="250"/>
+    <main>
+        <div>
+            <section id="formularioCuatrimoto">
+                <br />
+    <label class="label1">Nombre</label>
+    <input class="input2" type="text" id="name" placeholder="name" name="name" maxlength="45"/>
 
     <br />
     <br />
-    <label>Categoria</label>
+    <label class="label2">Marca</label>
+    <input class="input2" type="text" id="brand" placeholder="brand" name="brand" maxlength="45"/>
+
+    <br />
+    <br />
+    <label class="label3">Modelo (1970-2022)</label>
+    <input class="input2" type="number" id="year" placeholder="year" name="year"/>
+
+    <br />
+    <br />
+    <label class="label4">Descripción</label>
+    <input class="input2" type="text" id="description" placeholder="description" name="description" maxlength="250"/>
+
+    <br />
+    <br />
+    <label class="label5">Categoria</label>
     <select id="select-category"></select>
 
     <br />
     <br />
     <br />
     <button onclick="guardarInformacionCuatrimotos()">Registrar Cuatrimoto</button>
-    <a href="index.html" id="enlace2">Regresar</a></p>
+    <form>
+        <a href="index.html">
+            <input class="input1" type="button" value="Regresar">
+        </a>
+    </form>
+</section>
+<aside id="seccionImagen">
+    <img id="imagenReserva" src="Imagenes/reservacion.jpg" alt="Reservacion de un vehiculo">
+</aside>
+</div>
+</main>
+    <br />
     <br />
 
     <script type="text/javascript">
