@@ -1,17 +1,16 @@
-
 /**
-* reporteStatuts()  
-* Función que trae todos los registros de cantidad de reservas completadas y 
-* canceladas
-* con petición GET
-*/
+ * reporteStatuts()  
+ * Función que trae todos los registros de cantidad de reservas completadas y 
+ * canceladas
+ * con petición GET
+ */
 function reporteStatus() {
     console.log("test");
     $.ajax({
         url: serviceR + "report-status",
         type: "GET",
         datatype: "JSON",
-        success: function (respuesta) {
+        success: function(respuesta) {
             console.log(respuesta);
             pintarRespuestaStatus(respuesta);
         }
@@ -19,15 +18,15 @@ function reporteStatus() {
 }
 
 /**
-* pintarRespuestaStatus(respuesta)
-* Función que dibuja la tabla completa de registros de status de las reservas 
-* completadas y canceladas
-* @param {JSON con todos los registros de status de las reservas} respuesta 
-*/
+ * pintarRespuestaStatus(respuesta)
+ * Función que dibuja la tabla completa de registros de status de las reservas 
+ * completadas y canceladas
+ * @param {JSON con todos los registros de status de las reservas} respuesta 
+ */
 function pintarRespuestaStatus(respuesta) {
 
     let myTable = "<table>";
-    myTable += "<tr> <th>completadas</th> <th>canceladas</th> </tr>" ;
+    myTable += "<tr> <th>completadas</th> <th>canceladas</th> </tr>";
     myTable += "<tr> <td>" + respuesta.completed + "</td>";
     myTable += "<td>" + respuesta.cancelled + "</td> </tr>";
     myTable += "</tr>";
@@ -36,20 +35,20 @@ function pintarRespuestaStatus(respuesta) {
 }
 
 /**
-* reporteFecha()  
-* Función que trae todos los registros de las reservas hechas
-* en un periodo de tiempo con petición GET
-*/
+ * reporteFecha()  
+ * Función que trae todos los registros de las reservas hechas
+ * en un periodo de tiempo con petición GET
+ */
 function reporteFecha() {
 
     var fechaInicio = document.getElementById("RstarDate").value;
     var fechaCierre = document.getElementById("RdevolutionDate").value;
-    
+
     $.ajax({
         url: serviceR + "report-dates/" + fechaInicio + "/" + fechaCierre,
         type: "GET",
         datatype: "JSON",
-        success: function (respuesta) {
+        success: function(respuesta) {
             console.log(respuesta);
             pintarRespuestaDate(respuesta);
         }
@@ -57,12 +56,12 @@ function reporteFecha() {
 }
 
 /**
-* pintarRespuestaDate(respuesta)
-* Función que dibuja la tabla completa de registros de las reservas hechas
-* en un periodo de tiempo
-* @param {JSON con todos los registros de las reservas hechas en un periodo 
-* de tiempo} respuesta 
-*/
+ * pintarRespuestaDate(respuesta)
+ * Función que dibuja la tabla completa de registros de las reservas hechas
+ * en un periodo de tiempo
+ * @param {JSON con todos los registros de las reservas hechas en un periodo 
+ * de tiempo} respuesta 
+ */
 function pintarRespuestaDate(respuesta) {
 
     let myTable = "<table>";
@@ -89,26 +88,26 @@ function pintarRespuestaDate(respuesta) {
  * @param {Fecha a modificar} fecha 
  * @returns Fecha con formato yyyy/MM/dd
  */
- function arreglarFecha(fecha) {
-    let yyyy = fecha.substring(0,4);
-    let MM = fecha.substring(5,7);
-    let dd = fecha.substring(8,10);
+function arreglarFecha(fecha) {
+    let yyyy = fecha.substring(0, 4);
+    let MM = fecha.substring(5, 7);
+    let dd = fecha.substring(8, 10);
     return fechaNueva = yyyy + '/' + MM + '/' + dd;
 }
 
 
 /**
-* reporteClientes()  
-* Función que trae todos los registros de los clientes que más dinero le 
-* han dejado a la compañia
-* con petición GET
-*/
+ * reporteClientes()  
+ * Función que trae todos los registros de los clientes que más dinero le 
+ * han dejado a la compañia
+ * con petición GET
+ */
 function reporteClientes() {
     $.ajax({
         url: serviceR + "report-clients",
         type: "GET",
         datatype: "JSON",
-        success: function (respuesta) {
+        success: function(respuesta) {
             console.log(respuesta);
             pintarRespuestaClientes(respuesta);
         }
@@ -116,12 +115,12 @@ function reporteClientes() {
 }
 
 /**
-* pintarRespuestaDate(respuesta)
-* Función que dibuja la tabla completa deregistros de los clientes que más 
-* dinero le  han dejado a la compañia
-* @param {JSON con todos losregistros de los clientes que más dinero le 
-* han dejado a la compañia} respuesta 
-*/
+ * pintarRespuestaDate(respuesta)
+ * Función que dibuja la tabla completa deregistros de los clientes que más 
+ * dinero le  han dejado a la compañia
+ * @param {JSON con todos losregistros de los clientes que más dinero le 
+ * han dejado a la compañia} respuesta 
+ */
 function pintarRespuestaClientes(respuesta) {
 
     let myTable = "<table>";
@@ -139,4 +138,3 @@ function pintarRespuestaClientes(respuesta) {
     myTable += "</table>";
     $("#resultadoClientes").html(myTable);
 }
-

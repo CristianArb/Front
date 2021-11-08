@@ -13,7 +13,7 @@
 /**
  * La url base para los servicios 
  */
- var serviceC = service + "/api/Quadbike/";
+var serviceC = service + "/api/Quadbike/";
 
 /**
  * traerInformacionCuatrimotos()
@@ -55,10 +55,9 @@ function pintarRespuestaCuatrimotos(respuesta) {
         myTable += "<td>" + respuesta[i].name + "</td>";
         myTable += "<td>" + respuesta[i].year + "</td>";
         myTable += "<td>" + respuesta[i].description + "</td>";
-        myTable += "<td>" + respuesta[i].category.name + "</td>";//Mirar como hacer cuando la categoria sea null
+        myTable += "<td>" + validarNameJSON(respuesta[i].category) + "</td>";
         myTable += "<td>" + '<button onclick="borrarCuatrimoto(' + respuesta[i].id + ')">Borrar</button>' + "</td>";
         myTable += "<td>" + '<button onclick="detalleCuatrimoto(this)">Detalle</button>' + "</td>";
-
         myTable += "</tr>";
     }
 
@@ -75,13 +74,13 @@ function pintarRespuestaCuatrimotos(respuesta) {
 function guardarInformacionCuatrimotos() {
 
     console.log($("#select-category"))
-    if ($("#select-category").val() == null ){
+    if ($("#select-category").val() == null) {
 
         alert("Seleccione una categoria");
 
-        }
+    }
 
-        else{
+    else {
 
         if ($("#year").val() >= 1970 && $("#year").val() <= 2022) {
 
@@ -94,7 +93,7 @@ function guardarInformacionCuatrimotos() {
             };
 
             $.ajax({
-                url: serviceQ + "save",
+                url: serviceC + "save",
                 type: 'POST',
                 contentType: "application/json; charset=utf-8",
                 dataType: 'JSON',
@@ -220,8 +219,8 @@ function borrarCuatrimoto(codigo) {
 
             console.log(errorThrown);
             alert("Ha sucedido un problema al borrar la cuatrimoto, verifique "
-            + "que no tenga información almacenada de las reservas y los" + 
-            "mensajes.");
+                + "que no tenga información almacenada de las reservas y los" +
+                "mensajes.");
 
         }
     });
@@ -234,7 +233,7 @@ function borrarCuatrimoto(codigo) {
  * categorias en el formulario de Cuatrimoto
  */
 function autoInicioCategoria() {
-    
+
     $.ajax({
         url: service + "/api/Category/all",
         type: "GET",
@@ -248,4 +247,26 @@ function autoInicioCategoria() {
 
     })
 
+}
+
+/**
+ * validarNameJSON()
+ * Función que valida el atributo name del JSON cuando es nula.
+ * @param {JSON con todos los registros de la una tabla relacionada con 
+ * la tabla actual} JSON 
+ * @returns devuelve el atributo name del JSON cuando no es null.
+ */
+function validarNameJSON(JSON) {
+
+    if (JSON == null) {
+
+        return JSON;
+
+    }
+
+    else {
+
+        return JSON.name;
+
+    }
 }

@@ -24,22 +24,22 @@
             <section id="formularioReservacion">
                 <br />
                 <label>Fecha Incial</label>
-                <input type="date" id="startDate" placeholder="startDate" maxlength="45"><br>
+                <input class="input1" type="date" id="startDate" placeholder="startDate" maxlength="45"><br>
 
                 <br />
                 <br />
                 <label>Fecha Devolución</label>
-                <input type="date" id="devolutionDate" placeholder="devolutionDate" maxlength="45"><br>
+                <input class="input1" type="date" id="devolutionDate" placeholder="devolutionDate" maxlength="45"><br>
 
                 <br />
                 <br />
                 <label>Cliente</label>
-                <select id="select-client-R"></select>
+                <select class="input1" id="select-client-R"></select>
 
                 <br />
                 <br />
                 <label>Cuatrimoto</label>
-                <select id="select-quadbike-R"></select>
+                <select class="input1" id="select-quadbike-R"></select>
 
                 <br />
                 <br />
@@ -47,7 +47,7 @@
                 <button onclick="guardarInformacionReservaciones()">Registrar Reserva</button>
                 <form>
                     <a href="index.html">
-                        <input class="input1" type="button" value="Regresar">
+                        <input class="input2" type="button" value="Regresar">
                     </a>
                 </form>
             </section>
@@ -58,10 +58,8 @@
     </main>
 
     <script type="text/javascript">
-
         window.onload = autoInicioCliente();
         window.onload = autoInicioCuatrimoto();
-
     </script>
 
 </body>

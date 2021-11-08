@@ -24,17 +24,17 @@
             <section id="formularioMensaje">
                 <br />
                 <label>Mensaje</label>
-                <input type="text" id="messageText" placeholder="message text" name="menssageText" maxlength="250" />
+                <input class="input1" type="text" id="messageText" placeholder="message text" name="menssageText" maxlength="250" />
 
                 <br />
                 <br />
                 <label>Cliente</label>
-                <select id="select-client"></select>
+                <select class="input1" id="select-client"></select>
 
                 <br />
                 <br />
                 <label>Cuatrimoto</label>
-                <select id="select-quadbike"></select>
+                <select class="input1" id="select-quadbike"></select>
 
                 <br />
                 <br />
@@ -42,7 +42,7 @@
                 <button onclick="guardarInformacionMensajes()">Registrar Mensaje</button>
                 <form>
                     <a href="index.html">
-                        <input class="input1" type="button" value="Regresar">
+                        <input class="input2" type="button" value="Regresar">
                     </a>
                 </form>
             </section>
@@ -53,11 +53,8 @@
     </main>
 
     <script type="text/javascript">
-
-
         window.onload = autoInicioCliente();
         window.onload = autoInicioCuatrimoto();
-
     </script>
 
 </body>

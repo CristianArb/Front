@@ -48,8 +48,8 @@ function pintarRespuestaMensajes(respuesta) {
         myTable += "<tr>";
         myTable += "<td>" + respuesta[i].idMessage + "</td>";
         myTable += "<td>" + respuesta[i].messageText + "</td>";
-        myTable += "<td>" + respuesta[i].client.name + "</td>";
-        myTable += "<td>" + respuesta[i].quadbike.name + "</td>";
+        myTable += "<td>" + validarNameJSON(respuesta[i].client.name) + "</td>";
+        myTable += "<td>" + validarNameJSON(respuesta[i].quadbike.name) + "</td>";
         myTable += "<td>" + '<button onclick="borrarMensaje(' + respuesta[i].idMessage + ')">Borrar</button>' + "</td>";
         myTable += "<td>" + '<button onclick="detalleMensaje(this)">Detalle</button>' + "</td>";
         myTable += "</tr>";
@@ -247,4 +247,27 @@ function autoInicioCuatrimoto(){
         }
     
     })
+}
+
+
+/**
+ * validarNameJSON()
+ * Función que valida el atributo name del JSON cuando es nula.
+ * @param {JSON con todos los registros de la una tabla relacionada con 
+ * la tabla actual} JSON 
+ * @returns devuelve el atributo name del JSON cuando no es null.
+ */
+function validarNameJSON(JSON) {
+
+    if (JSON == null) {
+
+        return JSON;
+
+    }
+
+    else {
+
+        return JSON.name;
+
+    }
 }

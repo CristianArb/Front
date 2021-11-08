@@ -13,7 +13,7 @@
 /**
  * La url base para los servicios de la tabla Reservaciones
  */
- var serviceR = service + "/api/Reservation/";
+var serviceR = service + "/api/Reservation/";
 
 /**
  * traerInformacionReservaciones()
@@ -41,7 +41,7 @@ function traerInformacionReservaciones() {
  * Función que dibuja la tabla completa de registros de las reservaciones
  * @param {JSON con todos los registros de las reservaciones} respuesta 
  */
- function pintarRespuestaReservaciones(respuesta) {
+function pintarRespuestaReservaciones(respuesta) {
 
     let myTable = "<table>";
     myTable += "<tr> <th>Id</th> <th>Startdate</th> <th>Devolutiondate</th> <th>Client</th> <th>Quadbike</th> </tr>";
@@ -51,8 +51,8 @@ function traerInformacionReservaciones() {
         myTable += "<td>" + respuesta[i].idReservation + "</td>";
         myTable += "<td>" + arreglarFecha(respuesta[i].startDate) + "</td>";
         myTable += "<td>" + arreglarFecha(respuesta[i].devolutionDate) + "</td>";
-        myTable += "<td>" + respuesta[i].client.name + "</td>";
-        myTable += "<td>" + respuesta[i].quadbike.name + "</td>";
+        myTable += "<td>" + validarNameJSON(respuesta[i].client) + "</td>";
+        myTable += "<td>" + validarNameJSON(respuesta[i].quadbike) + "</td>";
         myTable += "<td>" + '<button onclick="borrarReservacion(' + respuesta[i].idReservation + ')">Borrar</button>' + "</td>";
         myTable += "<td>" + '<button onclick="detalleReservacion(this)">Detalle</button>' + "</td>";
 
@@ -70,9 +70,9 @@ function traerInformacionReservaciones() {
  * @returns Fecha con formato yyyy/MM/dd
  */
 function arreglarFecha(fecha) {
-    let yyyy = fecha.substring(0,4);
-    let MM = fecha.substring(5,7);
-    let dd = fecha.substring(8,10);
+    let yyyy = fecha.substring(0, 4);
+    let MM = fecha.substring(5, 7);
+    let dd = fecha.substring(8, 10);
     return fechaNueva = yyyy + '/' + MM + '/' + dd;
 }
 
@@ -84,19 +84,19 @@ function arreglarFecha(fecha) {
  */
 function guardarInformacionReservaciones() {
 
-    if ($("#select-client").val() == null  && 
-    $("#select-quadbike").val() == null  ){
+    if ($("#select-client").val() == null &&
+        $("#select-quadbike").val() == null) {
 
         alert("Seleccione una cuatrimoto y un cliente");
 
-        }
+    }
 
-        else{
+    else {
         let info = {
             startDate: $("#startDate").val(),
             devolutionDate: $("#devolutionDate").val(),
-            client: {idClient: $("#select-client-R").val()},
-            quadbike : {id: $("#select-quadbike-R").val()}
+            client: { idClient: $("#select-client-R").val() },
+            quadbike: { id: $("#select-quadbike-R").val() }
         };
 
         $.ajax({
@@ -130,7 +130,7 @@ function guardarInformacionReservaciones() {
  * Función que hace uso de un nodo para modificar los datos de tablaCuatrimoto
  * @param {Nodo con la fila de la tablaCuatrimoto} nodo 
  */
- function detalleReservacion(nodo) {
+function detalleReservacion(nodo) {
 
     var nodoTd = nodo.parentNode;
     var nodoTr = nodoTd.parentNode;
@@ -233,19 +233,19 @@ function borrarReservacion(codigo) {
  * Función que le inyecta a la lista desplegable clientes los datos de los
  * clientes en el formulario de Reservacion
  */
- function autoInicioCliente(){
-    
+function autoInicioCliente() {
+
     $.ajax({
         url: service + "/api/Client/all",
-        type:"GET",
-        datatype:"JSON",
-        success:function(respuesta){
+        type: "GET",
+        datatype: "JSON",
+        success: function (respuesta) {
             let $select = $("#select-client-R");
             $.each(respuesta, function (idClient, name) {
-                $select.append('<option value='+name.idClient+'>'+name.name+'</option>');
-            }); 
+                $select.append('<option value=' + name.idClient + '>' + name.name + '</option>');
+            });
         }
-    
+
     })
 
 }
@@ -255,7 +255,7 @@ function borrarReservacion(codigo) {
  * Función que le inyecta a la lista desplegable cuatrimotos los datos
  * de las cuatrimotos en el formulario de Reservacion
  */
- function autoInicioCuatrimoto() {
+function autoInicioCuatrimoto() {
 
     $.ajax({
         url: service + "/api/Quadbike/all",
@@ -270,4 +270,26 @@ function borrarReservacion(codigo) {
 
     })
 
+}
+
+/**
+ * validarNameJSON()
+ * Función que valida el atributo name del JSON cuando es nula.
+ * @param {JSON con todos los registros de la una tabla relacionada con 
+ * la tabla actual} JSON 
+ * @returns devuelve el atributo name del JSON cuando no es null.
+ */
+function validarNameJSON(JSON) {
+
+    if (JSON == null) {
+
+        return JSON;
+
+    }
+
+    else {
+
+        return JSON.name;
+
+    }
 }
