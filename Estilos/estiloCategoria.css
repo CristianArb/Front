@@ -1,0 +1,77 @@
+    #cabeceraCategoria {
+        width: 100%;
+        height: 150px;
+        background-color: #308f9b;
+    }
+    
+    #cabeceraCategoria>div {
+        width: 800px;
+        margin-left: 50px;
+        padding-top: 35px;
+    }
+    
+    #cabeceraCategoria h1 {
+        font: bold 50px "Lucida Handwriting", cursive;
+        color: #ffffff;
+    }
+    
+    main {
+        width: 100%;
+    }
+    
+    main>div {
+        margin-top: 50px;
+        margin-left: 50px;
+    }
+    
+    #formularioCategoria label {
+        float: left;
+        width: 25%;
+        font: 25px Arial, Helvetica, sans-serif;
+        margin-right: 0px;
+    }
+    
+    .input1 {
+        font-size: 14px;
+        font-family: cursive;
+        font-weight: 600;
+        color: #000000;
+        background-color: #ffffff;
+        display: inline-block;
+        transition: all .5s;
+        cursor: text;
+        padding: 10px 40px !important;
+        text-transform: uppercase;
+        width: fit-content;
+        text-align: center;
+        border: 1px solid #000000;
+    }
+    
+    .input2 {
+        color: #ffffff;
+        background-color: #308f9b;
+        font: 25px Arial, Helvetica, sans-serif;
+        cursor: pointer;
+    }
+    
+    #formularioCategoria form {
+        display: inline-block;
+    }
+    
+    #formularioCategoria button {
+        color: #ffffff;
+        font: 25px Arial, Helvetica, sans-serif;
+        background-color: #308f9b;
+        margin: 20px;
+        cursor: pointer;
+    }
+    
+    #seccionImagen {
+        float: right;
+        width: 40%;
+        padding-right: 2%;
+    }
+    
+    #imagenBotella {
+        width: 90%;
+    }
