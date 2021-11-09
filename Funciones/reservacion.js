@@ -99,7 +99,7 @@ function guardarInformacionReservaciones() {
             quadbike: { id: $("#select-quadbike-R").val() },
             status: $("#status").val()
         };
-        
+
         $.ajax({
             url: serviceR + "save",
             type: 'POST',
@@ -157,37 +157,44 @@ function detalleReservacion(nodo) {
  */
 function actualizarDatosReservacion(codigo) {
 
-    let info = {
-        idReservation: codigo,
-        startDate: $("#fechaIActulizado").val(),
-        devolutionDate: $("#fechaFActulizado").val(),
-        status: $("#statusActualizado").val()
+    if ($("#fechaIActulizado").val() == "" || $("#fechaFActulizado").val() == "" ||
+        $("#fechaIActulizado").val() >= $("#fechaFActulizado").val()) {
 
-    };
+        alert("Inserte las fechas corectamente.");
 
-    let dataToSend = JSON.stringify(info);
+    } else {
+        let info = {
+            idReservation: codigo,
+            startDate: $("#fechaIActulizado").val(),
+            devolutionDate: $("#fechaFActulizado").val(),
+            status: $("#statusActualizado").val()
 
-    $.ajax({
-        dataType: 'json',
-        data: dataToSend,
-        url: serviceR + "update",
-        type: "PUT",
-        contentType: 'application/json',
+        };
 
-        success: function (response) {
+        let dataToSend = JSON.stringify(info);
 
-            traerInformacionReservaciones();
-            alert("La reserva se actualizó correctamente.");
+        $.ajax({
+            dataType: 'json',
+            data: dataToSend,
+            url: serviceR + "update",
+            type: "PUT",
+            contentType: 'application/json',
 
-        },
-        error: function (errorThrown) {
+            success: function (response) {
 
-            traerInformacionReservaciones();
-            alert("Ha sucedido un problem al actualizar la reserva.");
+                traerInformacionReservaciones();
+                alert("La reserva se actualizó correctamente.");
+
+            },
+            error: function (errorThrown) {
+
+                traerInformacionReservaciones();
+                alert("Ha sucedido un problem al actualizar la reserva.");
 
 
-        }
-    });
+            }
+        });
+    }
 }
 
 

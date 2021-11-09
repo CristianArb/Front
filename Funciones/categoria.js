@@ -13,85 +13,89 @@
 /**
  * La url base para los servicios de la tabla Categoria
  */
- var serviceCT = service + "/api/Category/";
+var serviceCT = service + "/api/Category/";
 
- /**
-  * Función trae todos los registros de las categorias con petición GET
-  */
- function traerInformacionCategorias() {
-     $.ajax({
-         url: serviceCT + "all",
-         type: "GET",
-         datatype: "JSON",
-         success: function (respuesta) {
-             console.log(respuesta);
-             pintarRespuestaCategorias(respuesta);
-         },
-         error: function (xhr, status) {
-             alert("Ha sucedido un problema al consultar las categorias.");
-         }
-     });
- }
- 
- /**
-  * Función que dibuja la tabla completa de registros de los mensajes
-  * @param {JSON con todos los registros de las categorias} respuesta 
-  */
- function pintarRespuestaCategorias(respuesta) {
- 
-     let myTable = "<table>";
-     myTable += "<tr> <th>Id</th> <th>Name</th> <th>Description</th> </tr>";
-     for (i = 0; i < respuesta.length; i++) {
-         myTable += "<tr>";
-         myTable += "<td>" + respuesta[i].id + "</td>";
-         myTable += "<td>" + respuesta[i].name + "</td>";
-         myTable += "<td>" + respuesta[i].description + "</td>";
-         myTable += "<td>" + '<button onclick="borrarCategorias(' + respuesta[i].id+ ')">borrar</button>' + "</td>";
-         myTable += "<td>" + '<button onclick="detalleCategoria(this)">Detalle</button>' + "</td>";
- 
+/**
+ * Función trae todos los registros de las categorias con petición GET
+ */
+function traerInformacionCategorias() {
+    $.ajax({
+        url: serviceCT + "all",
+        type: "GET",
+        datatype: "JSON",
+        success: function (respuesta) {
+            console.log(respuesta);
+            pintarRespuestaCategorias(respuesta);
+        },
+        error: function (xhr, status) {
+            alert("Ha sucedido un problema al consultar las categorias.");
+        }
+    });
+}
 
-         myTable += "</tr>";
-     }
-     myTable += "</table>";
-     $("#tablaCategoria").html(myTable);
- }
- 
- /**
-  * guardarInformacionCategorias()
-  * Función para guardar una categoria
-  */
- function guardarInformacionCategorias() {
-     
-     let info = {
-         name: $("#nameCT").val(),
-         description: $("#descriptionCT").val()
-     };
- 
-     $.ajax({
-         url: serviceCT + "save",
-         type: 'POST',
-         contentType: "application/json; charset=utf-8",
-         dataType: 'JSON',
-         data: JSON.stringify(info),
- 
- 
-         success: function (response) {
-             window.location.reload();
-             console.log(response);
-             alert("La categoria se guardó correctamente.");
- 
-         },
- 
-         error: function (jqXHR, textStatus, errorThrown) {
-             window.location.reload();
-             console.log(errorThrown);
-             alert("Ha sucedido un problema al guarda la categoria.");
- 
- 
-         }
-     });
- 
- }
+/**
+ * Función que dibuja la tabla completa de registros de los mensajes
+ * @param {JSON con todos los registros de las categorias} respuesta 
+ */
+function pintarRespuestaCategorias(respuesta) {
+
+    let myTable = "<table>";
+    myTable += "<tr> <th>Id</th> <th>Name</th> <th>Description</th> </tr>";
+    for (i = 0; i < respuesta.length; i++) {
+        myTable += "<tr>";
+        myTable += "<td>" + respuesta[i].id + "</td>";
+        myTable += "<td>" + respuesta[i].name + "</td>";
+        myTable += "<td>" + respuesta[i].description + "</td>";
+        myTable += "<td>" + '<button onclick="borrarCategorias(' + respuesta[i].id + ')">borrar</button>' + "</td>";
+        myTable += "<td>" + '<button onclick="detalleCategoria(this)">Detalle</button>' + "</td>";
+
+
+        myTable += "</tr>";
+    }
+    myTable += "</table>";
+    $("#tablaCategoria").html(myTable);
+}
+
+/**
+ * guardarInformacionCategorias()
+ * Función para guardar una categoria
+ */
+function guardarInformacionCategorias() {
+
+    if ($("#nameCT").val() == "" || $("#descriptionCT").val() == "") {
+        alert("No puede dejar el nombre o la descripción en blanco");
+
+    } else {
+        let info = {
+            name: $("#nameCT").val(),
+            description: $("#descriptionCT").val()
+        };
+
+        $.ajax({
+            url: serviceCT + "save",
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(info),
+
+
+            success: function (response) {
+                window.location.reload();
+                console.log(response);
+                alert("La categoria se guardó correctamente.");
+
+            },
+
+            error: function (jqXHR, textStatus, errorThrown) {
+                window.location.reload();
+                console.log(errorThrown);
+                alert("Ha sucedido un problema al guarda la categoria.");
+
+
+            }
+        });
+    }
+}
 
 /**
  * detalleCuatrimoto(nodo)
@@ -124,35 +128,40 @@ function detalleCategoria(nodo) {
  */
 function actualizarDatosCategorias(codigo) {
 
-    let info = {
-        id: codigo,
-        name: $("#nombreCTActulizado").val(),
-        description: $("#descripcionCTActulizado").val()
-    };
+    if ($("#nombreCTActulizado").val() == "" || $("#descripcionCTActulizado").val() == "") {
+        alert("No puede dejar el nombre o la descripción en blanco");
 
-    let dataToSend = JSON.stringify(info);
+    } else {
+        let info = {
+            id: codigo,
+            name: $("#nombreCTActulizado").val(),
+            description: $("#descripcionCTActulizado").val()
+        };
 
-    $.ajax({
-        dataType: 'json',
-        data: dataToSend,
-        url: serviceCT + "update",
-        type: "PUT",
-        contentType: 'application/json',
+        let dataToSend = JSON.stringify(info);
 
-        success: function (response) {
+        $.ajax({
+            dataType: 'json',
+            data: dataToSend,
+            url: serviceCT + "update",
+            type: "PUT",
+            contentType: 'application/json',
 
-            traerInformacionCategorias();
-            alert("La categoria se actualizó correctamente.");
+            success: function (response) {
 
-        },
-        error: function (errorThrown) {
+                traerInformacionCategorias();
+                alert("La categoria se actualizó correctamente.");
 
-            traerInformacionCategorias();
-            alert("Ha sucedido un problema al actualizar la categoria.");
+            },
+            error: function (errorThrown) {
+
+                traerInformacionCategorias();
+                alert("Ha sucedido un problema al actualizar la categoria.");
 
 
-        }
-    });
+            }
+        });
+    }
 }
 
 /**
@@ -186,7 +195,7 @@ function borrarCategorias(codigo) {
 
             console.log(errorThrown);
             alert("Ha sucedido un problema al borrar la categoria, verifique"
-            + "que no tenga información almacenada de las cuatrimotos.");
+                + "que no tenga información almacenada de las cuatrimotos.");
 
         }
     });

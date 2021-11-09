@@ -64,38 +64,45 @@ function pintarRespuestaClientes(respuesta) {
  * Función para guardar un cliente
  */
 function guardarInformacionClientes() {
-    let info = {
-        name: $("#nameCL").val(),
-        email: $("#email").val(),
-        password: $("#password").val(),
-        age: $("#age").val(),
-    };
 
-    $.ajax({
-        url: serviceCL + "save",
-        type: 'POST',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'JSON',
-        data: JSON.stringify(info),
+    if ($("#nameCL").val() == "" || $("#email").val() == "" ||
+        $("#password").val() == "" || $("#age").val() == "") {
 
+        alert("No puede dejar ningun campo en blanco");
 
-        success: function (response) {
-            window.location.reload();
-            console.log(response);
-            console.log("El cliente se guardó correctamente");
-            alert("El cliente se guardo correctamente.");
+    } else {
+        let info = {
+            name: $("#nameCL").val(),
+            email: $("#email").val(),
+            password: $("#password").val(),
+            age: $("#age").val(),
+        };
 
-        },
-
-        error: function (jqXHR, textStatus, errorThrown) {
-            window.location.reload();
-            console.log(errorThrown);
-            alert("Ha sucedido un problema al guardar el cliente.");
+        $.ajax({
+            url: serviceCL + "save",
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(info),
 
 
-        }
-    });
+            success: function (response) {
+                window.location.reload();
+                console.log(response);
+                console.log("El cliente se guardó correctamente");
+                alert("El cliente se guardo correctamente.");
 
+            },
+
+            error: function (jqXHR, textStatus, errorThrown) {
+                window.location.reload();
+                console.log(errorThrown);
+                alert("Ha sucedido un problema al guardar el cliente.");
+
+
+            }
+        });
+    }
 }
 
 /**
@@ -104,7 +111,7 @@ function guardarInformacionClientes() {
  * cliente
  * @param {Nodo con la fila de la tabla cliente} nodo 
  */
- function detalleClientes(nodo) {
+function detalleClientes(nodo) {
 
     var nodoTd = nodo.parentNode;
     var nodoTr = nodoTd.parentNode;
@@ -132,37 +139,44 @@ function guardarInformacionClientes() {
  */
 function actualizarDatosCliente(codigo) {
 
-    let info = {
-        idClient: codigo,
-        email: $("#emailActualizado").val(),
-        password: $("#passwordActualizado").val(),
-        name: $("#nameCLActualizado").val(),
-        age: $("#ageActualizado").val()
-    };
+    if ($("#emailActualizado").val() == "" || $("#passwordActualizado").val() == "" ||
+        $("#nameCLActualizado").val() == "" || $("#ageActualizado").val() == "") {
 
-    let dataToSend = JSON.stringify(info);
+        alert("No puede dejar ningun campo en blanco");
 
-    $.ajax({
-        dataType: 'json',
-        data: dataToSend,
-        url: serviceCL + "update",
-        type: "PUT",
-        contentType: 'application/json',
+    } else {
+        let info = {
+            idClient: codigo,
+            email: $("#emailActualizado").val(),
+            password: $("#passwordActualizado").val(),
+            name: $("#nameCLActualizado").val(),
+            age: $("#ageActualizado").val()
+        };
 
-        success: function (response) {
+        let dataToSend = JSON.stringify(info);
 
-            traerInformacionClientes();
-            alert("El cliente se actualizó correctamente.");
+        $.ajax({
+            dataType: 'json',
+            data: dataToSend,
+            url: serviceCL + "update",
+            type: "PUT",
+            contentType: 'application/json',
 
-        },
-        error: function (errorThrown) {
+            success: function (response) {
 
-            traerInformacionClientes();
-            alert("El cliente no se actualizó correctamente.");
+                traerInformacionClientes();
+                alert("El cliente se actualizó correctamente.");
+
+            },
+            error: function (errorThrown) {
+
+                traerInformacionClientes();
+                alert("El cliente no se actualizó correctamente.");
 
 
-        }
-    });
+            }
+        });
+    }
 }
 
 
@@ -197,7 +211,7 @@ function borrarClientes(codigo) {
 
             console.log(errorThrown);
             alert("Ha sucedido un problema al borrar el cliente, verifique que"
-            + "no tenga información almacenada de las reservas y los mensajes."
+                + "no tenga información almacenada de las reservas y los mensajes."
             );
 
         }

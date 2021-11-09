@@ -27,11 +27,11 @@ function traerInformacionCuatrimotos() {
         url: serviceC + "all",
         type: "GET",
         datatype: "JSON",
-        success: function(respuesta) {
+        success: function (respuesta) {
             console.log(respuesta);
             pintarRespuestaCuatrimotos(respuesta);
         },
-        error: function(xhr, status) {
+        error: function (xhr, status) {
             alert("Ha sucedido un problema al consultar cuatrimoto.");
         }
     });
@@ -73,42 +73,48 @@ function pintarRespuestaCuatrimotos(respuesta) {
  */
 function guardarInformacionCuatrimotos() {
 
-    console.log($("#select-category"))
+    if ($("#name").val() == "" || $("#brand").val() == "" ||
+        $("#year").val() == "" || $("#description").val() == "" ||
+        $("#select-category").val() == "") {
 
-    if ($("#year").val() >= 1970 && $("#year").val() <= 2022) {
+        alert("No puede dejar ningun campo en blanco");
 
-        let info = {
-            name: $("#name").val(),
-            brand: $("#brand").val(),
-            year: $("#year").val(),
-            description: $("#description").val(),
-            category: { id: $("#select-category").val() },
-        };
-
-        $.ajax({
-            url: serviceC + "save",
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            dataType: 'JSON',
-            data: JSON.stringify(info),
-
-
-            success: function(response) {
-                window.location.reload();
-                console.log(response);
-                alert("La cuatrimoto se guardó correctamente.");
-
-            },
-
-            error: function(jqXHR, textStatus, errorThrown) {
-                window.location.reload();
-                console.log(errorThrown)
-                alert("Ha sucedido un problema al guardar la cuatrimoto llene" +
-                    "todos los campos.");
-            }
-        });
     } else {
-        alert("El año debe estar entre 1970 y 2022");
+        if ($("#year").val() >= 1970 && $("#year").val() <= 2022) {
+
+            let info = {
+                name: $("#name").val(),
+                brand: $("#brand").val(),
+                year: $("#year").val(),
+                description: $("#description").val(),
+                category: { id: $("#select-category").val() },
+            };
+
+            $.ajax({
+                url: serviceC + "save",
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                dataType: 'JSON',
+                data: JSON.stringify(info),
+
+
+                success: function (response) {
+                    window.location.reload();
+                    console.log(response);
+                    alert("La cuatrimoto se guardó correctamente.");
+
+                },
+
+                error: function (jqXHR, textStatus, errorThrown) {
+                    window.location.reload();
+                    console.log(errorThrown)
+                    alert("Ha sucedido un problema al guardar la cuatrimoto llene" +
+                        "todos los campos.");
+                }
+            });
+        } else {
+            alert("El año debe estar entre 1970 y 2022");
+        }
     }
 
 }
@@ -148,37 +154,44 @@ function detalleCuatrimoto(nodo) {
  */
 function actualizarDatosCuatrimotos(codigo) {
 
-    let info = {
-        id: codigo,
-        name: $("#nombreActulizado").val(),
-        brand: $("#marcaActulizado").val(),
-        year: $("#añoActulizado").val(),
-        description: $("#descripcionActulizado").val()
-    };
+    if ($("#nombreActulizado").val() == "" || $("#marcaActulizado").val() == "" ||
+        $("#añoActulizado").val() == "" || $("#descripcionActulizado").val() == "") {
 
-    let dataToSend = JSON.stringify(info);
+        alert("No puede dejar ningun campo en blanco");
 
-    $.ajax({
-        dataType: 'json',
-        data: dataToSend,
-        url: serviceC + "update",
-        type: "PUT",
-        contentType: 'application/json',
+    } else {
+        let info = {
+            id: codigo,
+            name: $("#nombreActulizado").val(),
+            brand: $("#marcaActulizado").val(),
+            year: $("#añoActulizado").val(),
+            description: $("#descripcionActulizado").val()
+        };
 
-        success: function(response) {
+        let dataToSend = JSON.stringify(info);
 
-            traerInformacionCuatrimotos();
-            alert("La cuatrimoto se actualizó correctamente.");
+        $.ajax({
+            dataType: 'json',
+            data: dataToSend,
+            url: serviceC + "update",
+            type: "PUT",
+            contentType: 'application/json',
 
-        },
-        error: function(errorThrown) {
+            success: function (response) {
 
-            traerInformacionCuatrimotos();
-            alert("Ha sucedido un problema al actualizar la cuatrimoto.");
+                traerInformacionCuatrimotos();
+                alert("La cuatrimoto se actualizó correctamente.");
+
+            },
+            error: function (errorThrown) {
+
+                traerInformacionCuatrimotos();
+                alert("Ha sucedido un problema al actualizar la cuatrimoto.");
 
 
-        }
-    });
+            }
+        });
+    }
 }
 
 
@@ -202,14 +215,14 @@ function borrarCuatrimoto(codigo) {
         data: dataToSend,
         dataType: 'JSON',
         contentType: 'application/json',
-        success: function() {
+        success: function () {
 
             traerInformacionCuatrimotos();
             alert("La cuatrimoto se borró correctamente.")
 
         },
 
-        error: function(errorThrown) {
+        error: function (errorThrown) {
 
             console.log(errorThrown);
             alert("Ha sucedido un problema al borrar la cuatrimoto, verifique " +
@@ -232,9 +245,9 @@ function autoInicioCategoria() {
         url: service + "/api/Category/all",
         type: "GET",
         datatype: "JSON",
-        success: function(respuesta) {
+        success: function (respuesta) {
             let $select = $("#select-category");
-            $.each(respuesta, function(id, name) {
+            $.each(respuesta, function (id, name) {
                 $select.append('<option value=' + name.id + '>' + name.name + '</option>');
             });
         }

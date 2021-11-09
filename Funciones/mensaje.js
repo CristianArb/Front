@@ -48,8 +48,8 @@ function pintarRespuestaMensajes(respuesta) {
         myTable += "<tr>";
         myTable += "<td>" + respuesta[i].idMessage + "</td>";
         myTable += "<td>" + respuesta[i].messageText + "</td>";
-        myTable += "<td>" +  validarNombres(respuesta[i].client) + "</td>";
-        myTable += "<td>" +  validarNombres(respuesta[i].quadbike) + "</td>";
+        myTable += "<td>" + validarNombres(respuesta[i].client) + "</td>";
+        myTable += "<td>" + validarNombres(respuesta[i].quadbike) + "</td>";
         myTable += "<td>" + '<button onclick="borrarMensaje(' + respuesta[i].idMessage + ')">Borrar</button>' + "</td>";
         myTable += "<td>" + '<button onclick="detalleMensaje(this)">Detalle</button>' + "</td>";
         myTable += "</tr>";
@@ -67,7 +67,7 @@ function guardarInformacionMensajes() {
     if ($("#select-client").val() == "" || $("#select-quadbike").val() == "" ||
         $("#messageText").val() == "") {
 
-        alert("Seleccione una cuatrimoto y un cliente");
+        alert("Seleccione una cuatrimoto, un cliente y escriba un mensaje");
 
     } else {
 
@@ -137,35 +137,41 @@ function detalleMensaje(nodo) {
  */
 function actualizarDatosMensaje(codigo) {
 
-    let info = {
-        idMessage: codigo,
-        messageText: $("#textoActulizado").val(),
+    if ($("#textoActulizado").val() == "") {
 
-    };
+        alert("Debe colocar un mensaje");
 
-    let dataToSend = JSON.stringify(info);
+    } else {
+        let info = {
+            idMessage: codigo,
+            messageText: $("#textoActulizado").val(),
 
-    $.ajax({
-        dataType: 'json',
-        data: dataToSend,
-        url: serviceM + "update",
-        type: "PUT",
-        contentType: 'application/json',
+        };
 
-        success: function (response) {
+        let dataToSend = JSON.stringify(info);
 
-            traerInformacionMensajes();
-            alert("El mensaje se actualizó correctamente.");
+        $.ajax({
+            dataType: 'json',
+            data: dataToSend,
+            url: serviceM + "update",
+            type: "PUT",
+            contentType: 'application/json',
 
-        },
-        error: function (errorThrown) {
+            success: function (response) {
 
-            traerInformacionMensajes();
-            alert("Ha sucedido un problema al actualiza el mensaje.");
+                traerInformacionMensajes();
+                alert("El mensaje se actualizó correctamente.");
+
+            },
+            error: function (errorThrown) {
+
+                traerInformacionMensajes();
+                alert("Ha sucedido un problema al actualiza el mensaje.");
 
 
-        }
-    });
+            }
+        });
+    }
 }
 
 /**
