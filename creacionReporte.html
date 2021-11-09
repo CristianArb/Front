@@ -11,6 +11,7 @@
     <script type="text/javascript" language="JavaScript" src="Funciones/reservacion.js"></script>
     <script type="text/javascript" language="JavaScript" src="Funciones/reporte.js"></script>
     <link rel="stylesheet" href="Estilos/estiloReporte.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
@@ -42,16 +43,16 @@
 
 
 
-                    <div class="row">
+                    <div class="row" id="divmayor">
 
-                        <div class="col-sm-1">
+                        <div class="col-sm-3">
                             <button onclick="reporteFecha()"> Generar Reporte por fecha </button>
                             <br/>
                             <table id="resultadoStatus" cellpadding="1" cellspacing="1" border="1"></table>
 
                         </div>
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <button onclick="reporteStatus()"> Generar Reporte Status Reservas </button>
                             <br/>
                             <table id="resultadoDate" cellpadding="1" cellspacing="1" border="1"></table>
@@ -61,20 +62,13 @@
                         <div class="col-sm-3">
                             <button onclick="reporteClientes()"> Generar Reporte Clientes  </button>
                             <br/>
-                            <table id="resultadoClientes" cellpadding="1" cellspacing="1" border="1"></table>
-
+                            <table id="resultadoClientes" cellpadding="1" cellspacing="1" border="1"></table> 
                         </div>
-
-                    </div>
-
-
-                    <br/>
-                    <br/>
-
-                    <a href="index.html">
-                        <input class="input2" type="button" value="Regresar">
-                    </a>
-                    </form>
+                        <div class="col-sm-8">
+                        <a href="index.html" >
+                            <input class="input2" type="button" value="Regresar">
+                        </a>
+                        </div>
                 </section>
             </div>
         </main>

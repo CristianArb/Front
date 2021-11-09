@@ -81,12 +81,13 @@ main>div {
     cursor: pointer;
 }
 
-#seccionImagen {
+#seccionImagenMensaje {
     float: right;
     width: 40%;
     padding-right: 2%;
 }
 
-#imagenReserva {
-    width: 90%;
+#imagenBotella {
+    width: 300px;
+    height: 300px;
 }

@@ -20,8 +20,9 @@ main {
 }
 
 main>div {
-    margin-top: 50px;
-    margin-left: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 100%;
 }
 
 #formularioCuatrimoto label {
@@ -81,12 +82,20 @@ main>div {
     cursor: pointer;
 }
 
-#seccionImagen {
+#seccionImagenCuatrimoto {
     float: right;
-    width: 40%;
-    padding-right: 2%;
+    width: 30%;
 }
 
-#imagenBotella {
-    width: 90%;
+
+#imagenCuatrimoto{
+    width: 300px;
+    height: 300px;
+    
+}
+#formularioCuatrimoto{
+    width: 45%;
+}
+section{
+    display: inline;
 }

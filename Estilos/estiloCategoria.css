@@ -66,12 +66,13 @@
         cursor: pointer;
     }
     
-    #seccionImagen {
+    #seccionImagenCategoria {
         float: right;
         width: 40%;
         padding-right: 2%;
     }
     
-    #imagenBotella {
-        width: 90%;
+    #imagenCategoria {
+        width: 400px;
+        height: 300px;
     }
