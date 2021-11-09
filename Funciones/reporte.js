@@ -5,14 +5,16 @@
  * con petición GET
  */
 function reporteStatus() {
-    console.log("test");
+    
     $.ajax({
-        url: serviceR + "report-status",
+        url: service + "/api/Reservation/report-status",
         type: "GET",
         datatype: "JSON",
         success: function(respuesta) {
             console.log(respuesta);
             pintarRespuestaStatus(respuesta);
+        },error: function (xhr, status) {
+            alert("Ha sucedido un problema al consultar las reservas.");
         }
     });
 }
@@ -26,10 +28,9 @@ function reporteStatus() {
 function pintarRespuestaStatus(respuesta) {
 
     let myTable = "<table>";
-    myTable += "<tr> <th>completadas</th> <th>canceladas</th> </tr>";
+    myTable += "<tr> <th>Completadas</th> <th>Canceladas</th> </tr>";
     myTable += "<tr> <td>" + respuesta.completed + "</td>";
     myTable += "<td>" + respuesta.cancelled + "</td> </tr>";
-    myTable += "</tr>";
     myTable += "</table>";
     $("#resultadoStatus").html(myTable);
 }
@@ -48,14 +49,14 @@ function reporteFecha() {
     console.log(fechaInicio);
 
     if ((fechaInicio == "" || fechaCierre == "") ||
-        (fechaInicio > fechaCierre)) {
+        (fechaInicio >= fechaCierre)) {
 
         alert("Inserte las fechas corectamente.");
 
     } else {
 
         $.ajax({
-            url: serviceR + "report-dates/" + fechaInicio + "/" + fechaCierre,
+            url: service + "/api/Reservation/report-dates/" + fechaInicio + "/" + fechaCierre,
             type: "GET",
             datatype: "JSON",
             success: function(respuesta) {
@@ -76,16 +77,13 @@ function reporteFecha() {
 function pintarRespuestaDate(respuesta) {
 
     let myTable = "<table>";
-    myTable += "<tr>";
-
+    myTable += "<tr> <th>Id</th> <th>Startdate</th> <th>Devolutiondate</th> </tr>";
     for (i = 0; i < respuesta.length; i++) {
 
-        myTable += "<th>total</th>";
+        myTable += "<tr>";
+        myTable += "<td>" + respuesta[i].idReservation + "</td>";
         myTable += "<td>" + arreglarFechaR(respuesta[i].startDate) + "</td>";
-        myTable += "<td>" + arreglarFechaR(respuesta[i].devolutionDate) + "</td>"
-        myTable += "<td>" + respuesta[i].status + "</td>";
-
-
+        myTable += "<td>" + arreglarFechaR(respuesta[i].devolutionDate) + "</td>";
         myTable += "</tr>";
     }
     myTable += "</table>";
@@ -115,7 +113,7 @@ function arreglarFechaR(fecha) {
  */
 function reporteClientes() {
     $.ajax({
-        url: serviceR + "report-clients",
+        url: service + "/api/Reservation/report-clients",
         type: "GET",
         datatype: "JSON",
         success: function(respuesta) {
@@ -126,24 +124,21 @@ function reporteClientes() {
 }
 
 /**
- * pintarRespuestaDate(respuesta)
- * Función que dibuja la tabla completa deregistros de los clientes que más 
- * dinero le  han dejado a la compañia
- * @param {JSON con todos losregistros de los clientes que más dinero le 
+ * pintarReporteClientes(respuesta)
+ * Función que dibuja la tabla completa de registros de los clientes que
+ * reservaciones han hecho
+ * @param {JSON con todos los registros de los clientes que más dinero le 
  * han dejado a la compañia} respuesta 
  */
 function pintarReporteClientes(respuesta) {
 
     let myTable = "<table>";
-    myTable += "<tr>";
+    myTable += "<tr> <th>Total reservaciones</th> <th>Cliente</th> </tr>";
 
     for (i = 0; i < respuesta.length; i++) {
-        myTable += "<th>total</th>";
+        myTable += "<tr>";
         myTable += "<td>" + respuesta[i].total + "</td>";
         myTable += "<td>" + respuesta[i].client.name + "</td>";
-        myTable += "<td>" + respuesta[i].client.email + "</td>";
-        myTable += "<td>" + respuesta[i].client.age + "</td>";
-
         myTable += "</tr>";
     }
     myTable += "</table>";

@@ -24,12 +24,12 @@ function traerInformacionReservaciones() {
         url: serviceR + "all",
         type: "GET",
         datatype: "JSON",
-        success: function(respuesta) {
+        success: function (respuesta) {
             console.log(respuesta);
             pintarRespuestaReservaciones(respuesta);
         },
 
-        error: function(xhr, status) {
+        error: function (xhr, status) {
             alert("Ha sucedido un problema al consultar las reservas.");
         }
 
@@ -44,7 +44,7 @@ function traerInformacionReservaciones() {
 function pintarRespuestaReservaciones(respuesta) {
 
     let myTable = "<table>";
-    myTable += "<tr> <th>Id</th> <th>Startdate</th> <th>Devolutiondate</th> <th>Client</th> <th>Quadbike</th> </tr>";
+    myTable += "<tr> <th>Id</th> <th>Startdate</th> <th>Devolutiondate</th> <th>Client</th> <th>Quadbike</th> <th>Status</th> </tr>";
     for (i = 0; i < respuesta.length; i++) {
 
         myTable += "<tr>";
@@ -53,6 +53,7 @@ function pintarRespuestaReservaciones(respuesta) {
         myTable += "<td>" + arreglarFecha(respuesta[i].devolutionDate) + "</td>";
         myTable += "<td>" + validarNameJSON(respuesta[i].client) + "</td>";
         myTable += "<td>" + validarNameJSON(respuesta[i].quadbike) + "</td>";
+        myTable += "<td>" + respuesta[i].status + "</td>";
         myTable += "<td>" + '<button onclick="borrarReservacion(' + respuesta[i].idReservation + ')">Borrar</button>' + "</td>";
         myTable += "<td>" + '<button onclick="detalleReservacion(this)">Detalle</button>' + "</td>";
 
@@ -84,24 +85,21 @@ function arreglarFecha(fecha) {
  */
 function guardarInformacionReservaciones() {
 
-    console.log($("#startDate").val());
-
-
-    let info = {
-        startDate: $("#startDate").val(),
-        devolutionDate: $("#devolutionDate").val(),
-        client: { idClient: $("#select-client-R").val() },
-        quadbike: { id: $("#select-quadbike-R").val() }
-    };
-
-    if (($("#startDate").val() == "" ||
-            $("#devolutionDate").val() == "") ||
-        ($("#startDate").val() > $("#devolutionDate").val())) {
+    if ($("#startDate").val() == "" || $("#devolutionDate").val() == "" ||
+        $("#startDate").val() >= $("#devolutionDate").val()) {
 
         alert("Inserte las fechas corectamente.");
 
     } else {
 
+        let info = {
+            startDate: $("#startDate").val(),
+            devolutionDate: $("#devolutionDate").val(),
+            client: { idClient: $("#select-client-R").val() },
+            quadbike: { id: $("#select-quadbike-R").val() },
+            status: $("#status").val()
+        };
+        
         $.ajax({
             url: serviceR + "save",
             type: 'POST',
@@ -109,10 +107,7 @@ function guardarInformacionReservaciones() {
             dataType: 'JSON',
             data: JSON.stringify(info),
 
-
-
-
-            success: function(response) {
+            success: function (response) {
 
                 console.log(response);
                 alert("La reservacion se guardó correctamente.");
@@ -120,7 +115,7 @@ function guardarInformacionReservaciones() {
 
             },
 
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 window.location.reload()
                 alert("Ha sucedido un problema al guardar la reserva llene todos los campos.");
             }
@@ -146,6 +141,7 @@ function detalleReservacion(nodo) {
         '<td><input type="date" name="fechaFinal" id="fechaFActulizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
         '<td>' + nodosEnTr[3].textContent + '</td>' +
         '<td>' + nodosEnTr[4].textContent + '</td>' +
+        '<td> <select id="statusActualizado"> <option value="completed">Completada</option> <option value="cancelled">Cancelada</option> </select> </td>' +
         '<td><button onclick="borrarReservacion(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
         '</td><td><button onclick="actualizarDatosReservacion(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';
 
@@ -165,6 +161,7 @@ function actualizarDatosReservacion(codigo) {
         idReservation: codigo,
         startDate: $("#fechaIActulizado").val(),
         devolutionDate: $("#fechaFActulizado").val(),
+        status: $("#statusActualizado").val()
 
     };
 
@@ -177,13 +174,13 @@ function actualizarDatosReservacion(codigo) {
         type: "PUT",
         contentType: 'application/json',
 
-        success: function(response) {
+        success: function (response) {
 
             traerInformacionReservaciones();
             alert("La reserva se actualizó correctamente.");
 
         },
-        error: function(errorThrown) {
+        error: function (errorThrown) {
 
             traerInformacionReservaciones();
             alert("Ha sucedido un problem al actualizar la reserva.");
@@ -214,14 +211,14 @@ function borrarReservacion(codigo) {
         data: dataToSend,
         dataType: 'JSON',
         contentType: 'application/json',
-        success: function() {
+        success: function () {
 
             traerInformacionReservaciones();
             alert("La reserva se borró correctamente.")
 
         },
 
-        error: function(errorThrown) {
+        error: function (errorThrown) {
 
             console.log(errorThrown);
             alert("Ha sucedido un problema al borrar la reserva.");
@@ -242,9 +239,9 @@ function autoInicioCliente() {
         url: service + "/api/Client/all",
         type: "GET",
         datatype: "JSON",
-        success: function(respuesta) {
+        success: function (respuesta) {
             let $select = $("#select-client-R");
-            $.each(respuesta, function(idClient, name) {
+            $.each(respuesta, function (idClient, name) {
                 $select.append('<option value=' + name.idClient + '>' + name.name + '</option>');
             });
         }
@@ -264,9 +261,9 @@ function autoInicioCuatrimoto() {
         url: service + "/api/Quadbike/all",
         type: "GET",
         datatype: "JSON",
-        success: function(respuesta) {
+        success: function (respuesta) {
             let $select = $("#select-quadbike-R");
-            $.each(respuesta, function(id, name) {
+            $.each(respuesta, function (id, name) {
                 $select.append('<option value=' + name.id + '>' + name.name + '</option>');
             });
         }

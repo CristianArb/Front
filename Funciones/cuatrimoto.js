@@ -128,10 +128,10 @@ function detalleCuatrimoto(nodo) {
     let nuevoCodigoHtml =
 
         '<td>' + nodosEnTr[0].textContent + '</td>' +
-        '<td><input type="text" name="nombre" id="nombreActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
-        '<td><input type="text" name="marca" id="marcaActulizado" value="' + nodosEnTr[2].textContent + '" size="1" </td>' +
-        '<td><input type="number" name="año" id="añoActulizado" value="' + nodosEnTr[3].textContent + '" size="1" </td>' +
-        '<td><input type="text" name="descripcion" id="descripcionActulizado" value="' + nodosEnTr[4].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="marca" id="marcaActulizado" value="' + nodosEnTr[1].textContent + '" style="width: 70px"></td>' +
+        '<td><input type="text" name="nombre" id="nombreActulizado" value="' + nodosEnTr[2].textContent + '" style="width: 70px"></td>' +
+        '<td><input type="number" name="año" id="añoActulizado" value="' + nodosEnTr[3].textContent + '" style="width: 70px"></td>' +
+        '<td><input type="text" name="descripcion" id="descripcionActulizado" value="' + nodosEnTr[4].textContent + '" style="width: 100px"></td>' +
         '<td>' + nodosEnTr[5].textContent + '</td>' +
         '<td><button onclick="borrarCuatrimoto(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
         '</td><td><button onclick="actualizarDatosCuatrimotos(' + nodosEnTr[0].textContent + ')">Aceptar</button></td>';

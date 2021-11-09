@@ -42,7 +42,6 @@ main>div {
     transition: all .5s;
     cursor: text;
     padding: 10px 40px !important;
-    text-transform: uppercase;
     width: fit-content;
     text-align: center;
     border: 1px solid #000000;

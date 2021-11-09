@@ -48,8 +48,8 @@ function pintarRespuestaMensajes(respuesta) {
         myTable += "<tr>";
         myTable += "<td>" + respuesta[i].idMessage + "</td>";
         myTable += "<td>" + respuesta[i].messageText + "</td>";
-        myTable += "<td>" + validarNameJSON(respuesta[i].client.name) + "</td>";
-        myTable += "<td>" + validarNameJSON(respuesta[i].quadbike.name) + "</td>";
+        myTable += "<td>" +  validarNombres(respuesta[i].client) + "</td>";
+        myTable += "<td>" +  validarNombres(respuesta[i].quadbike) + "</td>";
         myTable += "<td>" + '<button onclick="borrarMensaje(' + respuesta[i].idMessage + ')">Borrar</button>' + "</td>";
         myTable += "<td>" + '<button onclick="detalleMensaje(this)">Detalle</button>' + "</td>";
         myTable += "</tr>";
@@ -63,19 +63,18 @@ function pintarRespuestaMensajes(respuesta) {
  * Función para guardar un mensaje
  */
 function guardarInformacionMensajes() {
-    if ($("#select-client").val() == null  && 
-    $("#select-quadbike").val() == null  ){
+
+    if ($("#select-client").val() == "" || $("#select-quadbike").val() == "" ||
+        $("#messageText").val() == "") {
 
         alert("Seleccione una cuatrimoto y un cliente");
 
-        }
-
-        else{
+    } else {
 
         let info = {
             messageText: $("#messageText").val(),
-            client: {idClient: $("#select-client").val()},
-            quadbike : {id: $("#select-quadbike").val()}          
+            client: { idClient: $("#select-client").val() },
+            quadbike: { id: $("#select-quadbike").val() }
         };
 
         $.ajax({
@@ -100,7 +99,7 @@ function guardarInformacionMensajes() {
                 alert("Ha sucedido un problema al guardar el mensaje.");
 
 
-            }  
+            }
         });
     }
 
@@ -111,7 +110,7 @@ function guardarInformacionMensajes() {
  * Función que hace uso de un nodo para modificar los datos de tabla Mensaje
  * @param {Nodo con la fila de la tabla Mensaje} nodo 
  */
- function detalleMensaje(nodo) {
+function detalleMensaje(nodo) {
 
     var nodoTd = nodo.parentNode;
     var nodoTr = nodoTd.parentNode;
@@ -120,7 +119,7 @@ function guardarInformacionMensajes() {
     let nuevoCodigoHtml =
 
         '<td>' + nodosEnTr[0].textContent + '</td>' +
-        '<td><input type="text" name="menssageText" id="nombreActulizado" value="' + nodosEnTr[1].textContent + '" size="1" </td>' +
+        '<td><input type="text" name="menssageText" id="textoActulizado" value="' + nodosEnTr[1].textContent + '" style="width: 200px"></td>' +
         '<td>' + nodosEnTr[2].textContent + '</td>' +
         '<td>' + nodosEnTr[3].textContent + '</td>' +
         '<td><button onclick="borrarMensaje(' + nodosEnTr[0].textContent + ')">Borrar</button></td>' +
@@ -140,8 +139,8 @@ function actualizarDatosMensaje(codigo) {
 
     let info = {
         idMessage: codigo,
-        messageText: $("#nombreActulizado").val(),
-        
+        messageText: $("#textoActulizado").val(),
+
     };
 
     let dataToSend = JSON.stringify(info);
@@ -211,19 +210,19 @@ function borrarMensaje(codigo) {
  * Función que le inyecta a la lista desplegable clientes los datos de los
  * clientes en el formulario de Mensaje
  */
- function autoInicioCliente(){
-    
+function autoInicioCliente() {
+
     $.ajax({
         url: service + "/api/Client/all",
-        type:"GET",
-        datatype:"JSON",
-        success:function(respuesta){
+        type: "GET",
+        datatype: "JSON",
+        success: function (respuesta) {
             let $select = $("#select-client");
             $.each(respuesta, function (idClient, name) {
-                $select.append('<option value='+name.idClient+'>'+name.name+'</option>');
-            }); 
+                $select.append('<option value=' + name.idClient + '>' + name.name + '</option>');
+            });
         }
-    
+
     })
 
 }
@@ -233,19 +232,19 @@ function borrarMensaje(codigo) {
  * Función que le inyecta a la lista desplegable cuatrimotos los datos
  * de las cuatrimotos en el formulario de Mensaje
  */
-function autoInicioCuatrimoto(){
-    
+function autoInicioCuatrimoto() {
+
     $.ajax({
         url: service + "/api/Quadbike/all",
-        type:"GET",
-        datatype:"JSON",
-        success:function(respuesta){
+        type: "GET",
+        datatype: "JSON",
+        success: function (respuesta) {
             let $select = $("#select-quadbike");
             $.each(respuesta, function (id, name) {
-                $select.append('<option value='+name.id+'>'+name.name+'</option>');
-            }); 
+                $select.append('<option value=' + name.id + '>' + name.name + '</option>');
+            });
         }
-    
+
     })
 }
 
@@ -253,15 +252,15 @@ function autoInicioCuatrimoto(){
 /**
  * validarNameJSON()
  * Función que valida el atributo name del JSON cuando es nula.
- * @param {JSON con todos los registros de la una tabla relacionada con 
- * la tabla actual} JSON 
- * @returns devuelve el atributo name del JSON cuando no es null.
+ * @param {JSON con el registro de una tabla relacionada con la tabla
+ * actual} JSON
+ * @returns Devuelve el atributo name del JSON cuando no es null.
  */
-function validarNameJSON(JSON) {
+function validarNombres(JSON) {
 
     if (JSON == null) {
 
-        return JSON;
+        return "Sin nombre";
 
     }
 
