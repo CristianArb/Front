@@ -41,18 +41,29 @@ function pintarRespuestaStatus(respuesta) {
  */
 function reporteFecha() {
 
+
     var fechaInicio = document.getElementById("RstarDate").value;
     var fechaCierre = document.getElementById("RdevolutionDate").value;
 
-    $.ajax({
-        url: serviceR + "report-dates/" + fechaInicio + "/" + fechaCierre,
-        type: "GET",
-        datatype: "JSON",
-        success: function(respuesta) {
-            console.log(respuesta);
-            pintarRespuestaDate(respuesta);
-        }
-    });
+    console.log(fechaInicio);
+
+    if ((fechaInicio == "" || fechaCierre == "") ||
+        (fechaInicio > fechaCierre)) {
+
+        alert("Inserte las fechas corectamente.");
+
+    } else {
+
+        $.ajax({
+            url: serviceR + "report-dates/" + fechaInicio + "/" + fechaCierre,
+            type: "GET",
+            datatype: "JSON",
+            success: function(respuesta) {
+                console.log(respuesta);
+                pintarRespuestaDate(respuesta);
+            }
+        });
+    }
 }
 
 /**
@@ -70,8 +81,8 @@ function pintarRespuestaDate(respuesta) {
     for (i = 0; i < respuesta.length; i++) {
 
         myTable += "<th>total</th>";
-        myTable += "<td>" + arreglarFecha(respuesta[i].startDate) + "</td>";
-        myTable += "<td>" + arreglarFecha(respuesta[i].devolutionDate) + "</td>"
+        myTable += "<td>" + arreglarFechaR(respuesta[i].startDate) + "</td>";
+        myTable += "<td>" + arreglarFechaR(respuesta[i].devolutionDate) + "</td>"
         myTable += "<td>" + respuesta[i].status + "</td>";
 
 
@@ -88,7 +99,7 @@ function pintarRespuestaDate(respuesta) {
  * @param {Fecha a modificar} fecha 
  * @returns Fecha con formato yyyy/MM/dd
  */
-function arreglarFecha(fecha) {
+function arreglarFechaR(fecha) {
     let yyyy = fecha.substring(0, 4);
     let MM = fecha.substring(5, 7);
     let dd = fecha.substring(8, 10);
@@ -109,7 +120,7 @@ function reporteClientes() {
         datatype: "JSON",
         success: function(respuesta) {
             console.log(respuesta);
-            pintarRespuestaClientes(respuesta);
+            pintarReporteClientes(respuesta);
         }
     });
 }
@@ -121,7 +132,7 @@ function reporteClientes() {
  * @param {JSON con todos losregistros de los clientes que más dinero le 
  * han dejado a la compañia} respuesta 
  */
-function pintarRespuestaClientes(respuesta) {
+function pintarReporteClientes(respuesta) {
 
     let myTable = "<table>";
     myTable += "<tr>";

@@ -27,11 +27,11 @@ function traerInformacionCuatrimotos() {
         url: serviceC + "all",
         type: "GET",
         datatype: "JSON",
-        success: function (respuesta) {
+        success: function(respuesta) {
             console.log(respuesta);
             pintarRespuestaCuatrimotos(respuesta);
         },
-        error: function (xhr, status) {
+        error: function(xhr, status) {
             alert("Ha sucedido un problema al consultar cuatrimoto.");
         }
     });
@@ -74,49 +74,43 @@ function pintarRespuestaCuatrimotos(respuesta) {
 function guardarInformacionCuatrimotos() {
 
     console.log($("#select-category"))
-    if ($("#select-category").val() == null) {
 
-        alert("Seleccione una categoria");
+    if ($("#year").val() >= 1970 && $("#year").val() <= 2022) {
 
+        let info = {
+            name: $("#name").val(),
+            brand: $("#brand").val(),
+            year: $("#year").val(),
+            description: $("#description").val(),
+            category: { id: $("#select-category").val() },
+        };
+
+        $.ajax({
+            url: serviceC + "save",
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(info),
+
+
+            success: function(response) {
+                window.location.reload();
+                console.log(response);
+                alert("La cuatrimoto se guardó correctamente.");
+
+            },
+
+            error: function(jqXHR, textStatus, errorThrown) {
+                window.location.reload();
+                console.log(errorThrown)
+                alert("Ha sucedido un problema al guardar la cuatrimoto llene" +
+                    "todos los campos.");
+            }
+        });
+    } else {
+        alert("El año debe estar entre 1970 y 2022");
     }
 
-    else {
-
-        if ($("#year").val() >= 1970 && $("#year").val() <= 2022) {
-
-            let info = {
-                name: $("#name").val(),
-                brand: $("#brand").val(),
-                year: $("#year").val(),
-                description: $("#description").val(),
-                category: { id: $("#select-category").val() },
-            };
-
-            $.ajax({
-                url: serviceC + "save",
-                type: 'POST',
-                contentType: "application/json; charset=utf-8",
-                dataType: 'JSON',
-                data: JSON.stringify(info),
-
-
-                success: function (response) {
-                    window.location.reload();
-                    console.log(response);
-                    alert("La cuatrimoto se guardó correctamente.");
-
-                },
-
-                error: function (jqXHR, textStatus, errorThrown) {
-                    window.location.reload();
-                    console.log(errorThrown)
-                    alert("Ha sucedido un problema al guardar la cuatrimoto.");
-                }
-            });
-        } else {
-            alert("El año debe estar entre 1970 y 2022");
-        }
-    }
 }
 
 /**
@@ -171,13 +165,13 @@ function actualizarDatosCuatrimotos(codigo) {
         type: "PUT",
         contentType: 'application/json',
 
-        success: function (response) {
+        success: function(response) {
 
             traerInformacionCuatrimotos();
             alert("La cuatrimoto se actualizó correctamente.");
 
         },
-        error: function (errorThrown) {
+        error: function(errorThrown) {
 
             traerInformacionCuatrimotos();
             alert("Ha sucedido un problema al actualizar la cuatrimoto.");
@@ -208,18 +202,18 @@ function borrarCuatrimoto(codigo) {
         data: dataToSend,
         dataType: 'JSON',
         contentType: 'application/json',
-        success: function () {
+        success: function() {
 
             traerInformacionCuatrimotos();
             alert("La cuatrimoto se borró correctamente.")
 
         },
 
-        error: function (errorThrown) {
+        error: function(errorThrown) {
 
             console.log(errorThrown);
-            alert("Ha sucedido un problema al borrar la cuatrimoto, verifique "
-                + "que no tenga información almacenada de las reservas y los" +
+            alert("Ha sucedido un problema al borrar la cuatrimoto, verifique " +
+                "que no tenga información almacenada de las reservas y los" +
                 "mensajes.");
 
         }
@@ -238,9 +232,9 @@ function autoInicioCategoria() {
         url: service + "/api/Category/all",
         type: "GET",
         datatype: "JSON",
-        success: function (respuesta) {
+        success: function(respuesta) {
             let $select = $("#select-category");
-            $.each(respuesta, function (id, name) {
+            $.each(respuesta, function(id, name) {
                 $select.append('<option value=' + name.id + '>' + name.name + '</option>');
             });
         }
@@ -262,9 +256,7 @@ function validarNameJSON(JSON) {
 
         return JSON;
 
-    }
-
-    else {
+    } else {
 
         return JSON.name;
 

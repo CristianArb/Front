@@ -24,12 +24,12 @@ function traerInformacionReservaciones() {
         url: serviceR + "all",
         type: "GET",
         datatype: "JSON",
-        success: function (respuesta) {
+        success: function(respuesta) {
             console.log(respuesta);
             pintarRespuestaReservaciones(respuesta);
         },
 
-        error: function (xhr, status) {
+        error: function(xhr, status) {
             alert("Ha sucedido un problema al consultar las reservas.");
         }
 
@@ -84,20 +84,23 @@ function arreglarFecha(fecha) {
  */
 function guardarInformacionReservaciones() {
 
-    if ($("#select-client").val() == null &&
-        $("#select-quadbike").val() == null) {
+    console.log($("#startDate").val());
 
-        alert("Seleccione una cuatrimoto y un cliente");
 
-    }
+    let info = {
+        startDate: $("#startDate").val(),
+        devolutionDate: $("#devolutionDate").val(),
+        client: { idClient: $("#select-client-R").val() },
+        quadbike: { id: $("#select-quadbike-R").val() }
+    };
 
-    else {
-        let info = {
-            startDate: $("#startDate").val(),
-            devolutionDate: $("#devolutionDate").val(),
-            client: { idClient: $("#select-client-R").val() },
-            quadbike: { id: $("#select-quadbike-R").val() }
-        };
+    if (($("#startDate").val() == "" ||
+            $("#devolutionDate").val() == "") ||
+        ($("#startDate").val() > $("#devolutionDate").val())) {
+
+        alert("Inserte las fechas corectamente.");
+
+    } else {
 
         $.ajax({
             url: serviceR + "save",
@@ -109,7 +112,7 @@ function guardarInformacionReservaciones() {
 
 
 
-            success: function (response) {
+            success: function(response) {
 
                 console.log(response);
                 alert("La reservacion se guardó correctamente.");
@@ -117,9 +120,9 @@ function guardarInformacionReservaciones() {
 
             },
 
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 window.location.reload()
-                alert("Ha sucedido un problema al guardar la reserva.");
+                alert("Ha sucedido un problema al guardar la reserva llene todos los campos.");
             }
         });
     }
@@ -174,13 +177,13 @@ function actualizarDatosReservacion(codigo) {
         type: "PUT",
         contentType: 'application/json',
 
-        success: function (response) {
+        success: function(response) {
 
             traerInformacionReservaciones();
             alert("La reserva se actualizó correctamente.");
 
         },
-        error: function (errorThrown) {
+        error: function(errorThrown) {
 
             traerInformacionReservaciones();
             alert("Ha sucedido un problem al actualizar la reserva.");
@@ -211,14 +214,14 @@ function borrarReservacion(codigo) {
         data: dataToSend,
         dataType: 'JSON',
         contentType: 'application/json',
-        success: function () {
+        success: function() {
 
             traerInformacionReservaciones();
             alert("La reserva se borró correctamente.")
 
         },
 
-        error: function (errorThrown) {
+        error: function(errorThrown) {
 
             console.log(errorThrown);
             alert("Ha sucedido un problema al borrar la reserva.");
@@ -239,9 +242,9 @@ function autoInicioCliente() {
         url: service + "/api/Client/all",
         type: "GET",
         datatype: "JSON",
-        success: function (respuesta) {
+        success: function(respuesta) {
             let $select = $("#select-client-R");
-            $.each(respuesta, function (idClient, name) {
+            $.each(respuesta, function(idClient, name) {
                 $select.append('<option value=' + name.idClient + '>' + name.name + '</option>');
             });
         }
@@ -261,9 +264,9 @@ function autoInicioCuatrimoto() {
         url: service + "/api/Quadbike/all",
         type: "GET",
         datatype: "JSON",
-        success: function (respuesta) {
+        success: function(respuesta) {
             let $select = $("#select-quadbike-R");
-            $.each(respuesta, function (id, name) {
+            $.each(respuesta, function(id, name) {
                 $select.append('<option value=' + name.id + '>' + name.name + '</option>');
             });
         }
@@ -285,9 +288,7 @@ function validarNameJSON(JSON) {
 
         return JSON;
 
-    }
-
-    else {
+    } else {
 
         return JSON.name;
 
